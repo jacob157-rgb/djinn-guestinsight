@@ -29,9 +29,9 @@
         {{ $sum }}</p>
     <p>jateng total : {{ $region['jateng']['count'] }} = {{ $region['jateng']['persen'] }} % dari keseluruhan data =
         {{ $sum }}</p>
-    <p>luar jateng total : {{ $region['luar_jateng']['count'] }} = {{ $region['luar_jateng']['persen'] }} % dari
+    <p>luar jateng total : {{ $region['luarJateng']['count'] }} = {{ $region['luarJateng']['persen'] }} % dari
         keseluruhan data = {{ $sum }}</p>
 
-        
+
 </body>
 </html>

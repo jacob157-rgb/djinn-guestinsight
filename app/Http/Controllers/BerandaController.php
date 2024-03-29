@@ -26,7 +26,7 @@ class BerandaController extends Controller
             'endDate' => $request->end_date ?? ' ',
         ];
 
-        //dd($data);
+        dd($data);
         return view('v_beranda.index', $data);
     }
 }
