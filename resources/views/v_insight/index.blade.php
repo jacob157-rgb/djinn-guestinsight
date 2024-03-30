@@ -10,14 +10,6 @@
 
 <body>
 
-    <form action="" method="post">
-        @csrf
-        <input type="date" name="start_date" value="{{ $startDate }}">
-        <input type="date" name="end_date" value="{{ $endDate }}">
-        <button type="submit">filter</button>
-    </form>
-    <a href="/insight"><button>Reset</button></a>
-
 
     <p>tegal total : {{ $region['tegal']['count'] }} = {{ $region['tegal']['persen'] }} % dari keseluruhan data =
         {{ $sum }}</p>

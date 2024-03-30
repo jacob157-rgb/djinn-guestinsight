@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AkumulasiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BerandaController;
@@ -47,6 +48,12 @@ Route::prefix('form')->group(function () {
 Route::prefix('insight')->group(function () {
     //index
     Route::get('/', [InsightController::class, 'index']);
+});
+
+//akumulasi
+Route::prefix('akumulasi')->group(function () {
+    //index
+    Route::get('/', [AkumulasiController::class, 'index']);
     //filter date
-    Route::post('/', [InsightController::class, 'index']);
+    Route::post('/', [AkumulasiController::class, 'index']);
 });

@@ -8,10 +8,140 @@ use App\Models\Guest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class InsightController extends Controller
+class AkumulasiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->start_date && $request->end_date) {
+            $sumAlls = Guest::whereBetween('updated_at', [$request->start_date, $request->end_date])->count();
+
+            //klasifikasi daerah
+            $tegal = Guest::where('region', 'TEGAL')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $slawi = Guest::where('region', 'SLAWI')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $brebes = Guest::where('region', 'BREBES')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $pemalang = Guest::where('region', 'PEMALANG')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $jateng = Guest::where('region', 'JATENG')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $luarJateng = Guest::where('region', 'LUAR_JATENG')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+
+            //klasifikasi gender
+            $male = Guest::where('gender', 'L')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $female = Guest::where('gender', 'P')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $none = Guest::where('gender', 'N')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+
+            //klasifikasi pendidikan
+            $ts = Guest::where('education', 'TS')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $sd = Guest::where('education', 'SD')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $smp = Guest::where('education', 'SMP')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $sma = Guest::where('education', 'SMA')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $pt = Guest::where('education', 'PT')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+
+            //klasifikasi jenis tamu
+            $web = Guest::where('type_guest', 'WEB')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $work = Guest::where('type_guest', 'WORK_IN_GUEST')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $owner = Guest::where('type_guest', 'OWNER')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $travel = Guest::where('type_guest', 'TRAVEL')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $coorporate = Guest::where('type_guest', 'COORPORATE_FAMILY')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $entertainment = Guest::where('type_guest', 'ENTERTAINMENT')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+
+            //klasifikasi pekerjaan
+            $wiraswasta = Guest::where('work', 'WIRASWASTA')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $pns = Guest::where('work', 'PNS')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $tniPolri = Guest::where('work', 'TNI_POLRI')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $guru = Guest::where('work', 'GURU')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $pelajar = Guest::where('work', 'PELAJAR')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $freelancer = Guest::where('work', 'FREELANCER')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $buruh = Guest::where('work', 'BURUH')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $petani = Guest::where('work', 'PETANI')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $nelayan = Guest::where('work', 'NELAYAN')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $pedagang = Guest::where('work', 'PEDAGANG')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $pengusaha = Guest::where('work', 'PENGUSAHA')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+            $tidakBekerja = Guest::where('work', 'TIDAK_BEKERJA')
+                ->whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->count();
+
+            //klasifikasi Usia
+            $u18_25 = Guest::whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 18 AND 25')
+                ->count();
+
+            $u26_35 = Guest::whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 26 AND 35')
+                ->count();
+
+            $u36_50 = Guest::whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 36 AND 50')
+                ->count();
+
+            $u51_60 = Guest::whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 51 AND 60')
+                ->count();
+
+            $lansia = Guest::whereBetween('updated_at', [$request->start_date, $request->end_date])
+                ->whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) > 60')
+                ->count();
+        } else {
             $sumAlls = Guest::count();
 
             //klasifikasi daerah
@@ -66,8 +196,11 @@ class InsightController extends Controller
             $u51_60 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 51 AND 60')->count();
 
             $lansia = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) > 60')->count();
+        }
 
         $data = [
+            'startDate' => $request->start_date ?? ' ',
+            'endDate' => $request->end_date ?? ' ',
             'sum' => $sumAlls,
             'region' => [
                 'tegal' => [
@@ -231,7 +364,7 @@ class InsightController extends Controller
             ],
         ];
 
-        dd($data);
-        return view('v_insight.index', $data);
+        //dd($data);
+        return view('v_akumulasi.index', $data);
     }
 }
