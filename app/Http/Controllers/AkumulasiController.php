@@ -47,6 +47,31 @@ class AkumulasiController extends Controller
             $male = Guest::where('gender', 'L')->get();
             $female = Guest::where('gender', 'P')->get();
             $none = Guest::where('gender', 'N')->get();
+
+            $start_date = Carbon::now()->subDays(30)->toDateString();
+            $end_date = Carbon::now()->toDateString();
+        }
+
+        $trafik_male = [];
+        $trafik_female = [];
+        $trafik_none = [];
+
+        while ($start_date <= $end_date) {
+            $maleData = Guest::where('gender', 'L')->whereDate('updated_at', $start_date)->get();
+            $femaleData = Guest::where('gender', 'P')->whereDate('updated_at', $start_date)->get();
+            $noneData = Guest::where('gender', 'P')->whereDate('updated_at', $start_date)->get();
+
+            $male_count = count($maleData);
+            $female_count = count($femaleData);
+            $none_count = count($noneData);
+
+            $formatted_date = date('m-d-Y', strtotime($start_date));
+
+            $trafik_male[$formatted_date] = $male_count;
+            $trafik_female[$formatted_date] = $female_count;
+            $trafik_none[$formatted_date] = $none_count;
+
+            $start_date = date('Y-m-d', strtotime($start_date . ' +1 day'));
         }
 
         $data = [
@@ -54,18 +79,22 @@ class AkumulasiController extends Controller
                 'datas' => $male,
                 'persen' => $sumAlls != 0 ? (count($male) / $sumAlls) * 100 : 0,
                 'count' => count($male),
+                'trafik' => $trafik_male,
             ],
             'female' => [
                 'datas' => $female,
                 'persen' => $sumAlls != 0 ? (count($female) / $sumAlls) * 100 : 0,
                 'count' => count($female),
+                'trafik' => $trafik_female,
             ],
             'none' => [
                 'datas' => $none,
                 'persen' => $sumAlls != 0 ? (count($none) / $sumAlls) * 100 : 0,
                 'count' => count($none),
+                'trafik' => $trafik_none,
             ],
         ];
+        //dd($data);
 
         return $data;
     }
