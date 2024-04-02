@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AkumulasiController;
+use App\Http\Middleware\Permission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BerandaController;
@@ -28,6 +29,10 @@ Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
+Route::middleware(Permission::class)->group(function () {
+
+});
+
 //beranda
 Route::prefix('beranda')->group(function () {
     //index
@@ -48,6 +53,7 @@ Route::prefix('form')->group(function () {
 Route::prefix('insight')->group(function () {
     //index
     Route::get('/', [InsightController::class, 'index']);
+    Route::post('/', [InsightController::class, 'index']);
 });
 
 //akumulasi

@@ -26,7 +26,7 @@ class AkumulasiController extends Controller
             'birth_date' => $this->getBirthDate($request->start_date, $request->end_date, $sumAlls),
         ];
 
-        //dd($data);
+        dd($data);
         return view('v_akumulasi.index', $data);
     }
 
@@ -52,6 +52,7 @@ class AkumulasiController extends Controller
             $end_date = Carbon::now()->toDateString();
         }
 
+
         $trafik_male = [];
         $trafik_female = [];
         $trafik_none = [];
@@ -59,7 +60,7 @@ class AkumulasiController extends Controller
         while ($start_date <= $end_date) {
             $maleData = Guest::where('gender', 'L')->whereDate('updated_at', $start_date)->get();
             $femaleData = Guest::where('gender', 'P')->whereDate('updated_at', $start_date)->get();
-            $noneData = Guest::where('gender', 'P')->whereDate('updated_at', $start_date)->get();
+            $noneData = Guest::where('gender', 'N')->whereDate('updated_at', $start_date)->get();
 
             $male_count = count($maleData);
             $female_count = count($femaleData);
@@ -128,38 +129,80 @@ class AkumulasiController extends Controller
             $pemalang = Guest::where('region', 'PEMALANG')->get();
             $jateng = Guest::where('region', 'JATENG')->get();
             $luarJateng = Guest::where('region', 'LUAR_JATENG')->get();
+
+            $start_date = Carbon::now()->subDays(30)->toDateString();
+            $end_date = Carbon::now()->toDateString();
         }
 
+        $trafik_tegal = [];
+        $trafik_slawi = [];
+        $trafik_brebes = [];
+        $trafik_pemalang = [];
+        $trafik_jateng = [];
+        $trafik_luarJateng = [];
+
+        while ($start_date <= $end_date) {
+            $tegalData = Guest::where('region', 'TEGAL')->whereDate('updated_at', $start_date)->get();
+            $slawiData = Guest::where('region', 'SLAWI')->whereDate('updated_at', $start_date)->get();
+            $brebesData = Guest::where('region', 'BREBES')->whereDate('updated_at', $start_date)->get();
+            $pemalangData = Guest::where('region', 'PEMALANG')->whereDate('updated_at', $start_date)->get();
+            $jatengData = Guest::where('region', 'JATENG')->whereDate('updated_at', $start_date)->get();
+            $luarJatengData = Guest::where('region', 'LUAR_JATENG')->whereDate('updated_at', $start_date)->get();
+
+            $tegal_countData = count($tegalData);
+            $slawi_countData = count($slawiData);
+            $brebes_countData = count($brebesData);
+            $pemalang_countData = count($pemalangData);
+            $jateng_countData = count($jatengData);
+            $luarJateng_countData = count($luarJatengData);
+
+            $formatted_date = date('m-d-Y', strtotime($start_date));
+
+            $trafik_tegal[$formatted_date] = $tegal_countData;
+            $trafik_slawi[$formatted_date] = $slawi_countData;
+            $trafik_brebes[$formatted_date] = $brebes_countData;
+            $trafik_pemalang[$formatted_date] = $pemalang_countData;
+            $trafik_jateng[$formatted_date] = $jateng_countData;
+            $trafik_luarJateng[$formatted_date] = $luarJateng_countData;
+
+            $start_date = date('Y-m-d', strtotime($start_date . ' +1 day'));
+        }
         $data = [
             'tegal' => [
                 'datas' => $tegal,
                 'persen' => $sumAlls != 0 ? (count($tegal) / $sumAlls) * 100 : 0,
                 'count' => count($tegal),
+                'trafik' => $trafik_tegal,
             ],
             'slawi' => [
                 'datas' => $slawi,
                 'persen' => $sumAlls != 0 ? (count($slawi) / $sumAlls) * 100 : 0,
                 'count' => count($slawi),
+                'trafik' => $trafik_slawi,
             ],
             'brebes' => [
                 'datas' => $brebes,
                 'persen' => $sumAlls != 0 ? (count($brebes) / $sumAlls) * 100 : 0,
                 'count' => count($brebes),
+                'trafik' => $trafik_brebes,
             ],
             'pemalang' => [
                 'datas' => $pemalang,
                 'persen' => $sumAlls != 0 ? (count($pemalang) / $sumAlls) * 100 : 0,
                 'count' => count($pemalang),
+                'trafik' => $trafik_pemalang,
             ],
             'jateng' => [
                 'datas' => $jateng,
                 'persen' => $sumAlls != 0 ? (count($jateng) / $sumAlls) * 100 : 0,
                 'count' => count($jateng),
+                'trafik' => $trafik_jateng,
             ],
             'luarJateng' => [
                 'datas' => $luarJateng,
                 'persen' => $sumAlls != 0 ? (count($luarJateng) / $sumAlls) * 100 : 0,
                 'count' => count($luarJateng),
+                'trafik' => $trafik_luarJateng,
             ],
         ];
 
@@ -191,33 +234,74 @@ class AkumulasiController extends Controller
             $smp = Guest::where('education', 'SMP')->get();
             $sma = Guest::where('education', 'SMA')->get();
             $pt = Guest::where('education', 'PT')->get();
+
+            $start_date = Carbon::now()->subDays(30)->toDateString();
+            $end_date = Carbon::now()->toDateString();
         }
+
+        $trafik_ts = [];
+        $trafik_sd = [];
+        $trafik_smp = [];
+        $trafik_sma = [];
+        $trafik_pt = [];
+
+        while ($start_date <= $end_date) {
+
+            $tsData = Guest::where('education', 'TS')->whereDate('updated_at', $start_date)->get();
+            $sdData = Guest::where('education', 'SD')->whereDate('updated_at', $start_date)->get();
+            $smpData = Guest::where('education', 'SMP')->whereDate('updated_at', $start_date)->get();
+            $smaData = Guest::where('education', 'SMA')->whereDate('updated_at', $start_date)->get();
+            $ptData = Guest::where('education', 'PT')->whereDate('updated_at', $start_date)->get();
+
+            $ts_count = count($tsData);
+            $sd_count = count($sdData);
+            $smp_count = count($smpData);
+            $sma_count = count($smaData);
+            $pt_count = count($ptData);
+
+            $formatted_date = date('m-d-Y', strtotime($start_date));
+
+            $trafik_ts[$formatted_date] = $ts_count;
+            $trafik_sd[$formatted_date] = $sd_count;
+            $trafik_smp[$formatted_date] = $smp_count;
+            $trafik_sma[$formatted_date] = $sma_count;
+            $trafik_pt[$formatted_date] = $pt_count;
+
+
+            $start_date = date('Y-m-d', strtotime($start_date . ' +1 day'));
+        }
+
 
         $data = [
             'ts' => [
                 'datas' => $ts,
                 'persen' => $sumAlls != 0 ? (count($ts) / $sumAlls) * 100 : 0,
                 'count' => count($ts),
+                'trafik' => $trafik_ts,
             ],
             'sd' => [
                 'datas' => $sd,
                 'persen' => $sumAlls != 0 ? (count($sd) / $sumAlls) * 100 : 0,
                 'count' => count($sd),
+                'trafik' => $trafik_sd,
             ],
             'smp' => [
                 'datas' => $smp,
                 'persen' => $sumAlls != 0 ? (count($smp) / $sumAlls) * 100 : 0,
                 'count' => count($smp),
+                'trafik' => $trafik_smp,
             ],
             'sma' => [
                 'datas' => $sma,
                 'persen' => $sumAlls != 0 ? (count($sma) / $sumAlls) * 100 : 0,
                 'count' => count($sma),
+                'trafik' => $trafik_sma,
             ],
             'pt' => [
                 'datas' => $pt,
                 'persen' => $sumAlls != 0 ? (count($pt) / $sumAlls) * 100 : 0,
                 'count' => count($pt),
+                'trafik' => $trafik_pt,
             ],
         ];
 
@@ -253,6 +337,44 @@ class AkumulasiController extends Controller
             $travel = Guest::where('type_guest', 'TRAVEL')->get();
             $coorporate = Guest::where('type_guest', 'COORPORATE_FAMILY')->get();
             $entertainment = Guest::where('type_guest', 'ENTERTAINMENT')->get();
+
+            $start_date = Carbon::now()->subDays(30)->toDateString();
+            $end_date = Carbon::now()->toDateString();
+        }
+
+        $trafik_web = [];
+        $trafik_work = [];
+        $trafik_owner = [];
+        $trafik_travel = [];
+        $trafik_coorporate = [];
+        $trafik_entertainment = [];
+
+        while ($start_date <= $end_date) {
+
+            $webData = Guest::where('type_guest', 'WEB')->whereDate('updated_at', $start_date)->get();
+            $workData = Guest::where('type_guest', 'WORK_IN_GUEST')->whereDate('updated_at', $start_date)->get();
+            $ownerData = Guest::where('type_guest', 'OWNER')->whereDate('updated_at', $start_date)->get();
+            $travelData = Guest::where('type_guest', 'TRAVEL')->whereDate('updated_at', $start_date)->get();
+            $coorporateData = Guest::where('type_guest', 'COORPORATE_FAMILY')->whereDate('updated_at', $start_date)->get();
+            $entertainmentData = Guest::where('type_guest', 'ENTERTAINMENT')->whereDate('updated_at', $start_date)->get();
+
+            $web_count = count($webData);
+            $work_count = count($workData);
+            $owner_count = count($ownerData);
+            $travel_count = count($travelData);
+            $coorporate_count = count($coorporateData);
+            $entertainment_count = count($entertainmentData);
+
+            $formatted_date = date('m-d-Y', strtotime($start_date));
+
+            $trafik_web[$formatted_date] = $web_count;
+            $trafik_work[$formatted_date] = $work_count;
+            $trafik_owner[$formatted_date] = $owner_count;
+            $trafik_travel[$formatted_date] = $travel_count;
+            $trafik_coorporate[$formatted_date] = $coorporate_count;
+            $trafik_entertainment[$formatted_date] = $entertainment_count;
+
+            $start_date = date('Y-m-d', strtotime($start_date . ' +1 day'));
         }
 
         $data = [
@@ -260,31 +382,37 @@ class AkumulasiController extends Controller
                 'datas' => $web,
                 'persen' => $sumAlls != 0 ? (count($web) / $sumAlls) * 100 : 0,
                 'count' => count($web),
+                'trafik' => $trafik_web,
             ],
             'work' => [
                 'datas' => $work,
                 'persen' => $sumAlls != 0 ? (count($work) / $sumAlls) * 100 : 0,
                 'count' => count($work),
+                'trafik' => $trafik_work,
             ],
             'owner' => [
                 'datas' => $owner,
                 'persen' => $sumAlls != 0 ? (count($owner) / $sumAlls) * 100 : 0,
                 'count' => count($owner),
+                'trafik' => $trafik_owner,
             ],
             'travel' => [
                 'datas' => $travel,
                 'persen' => $sumAlls != 0 ? (count($travel) / $sumAlls) * 100 : 0,
                 'count' => count($travel),
+                'trafik' => $trafik_travel,
             ],
             'coorporate' => [
                 'datas' => $coorporate,
                 'persen' => $sumAlls != 0 ? (count($coorporate) / $sumAlls) * 100 : 0,
                 'count' => count($coorporate),
+                'trafik' => $trafik_coorporate,
             ],
             'entertainment' => [
                 'datas' => $entertainment,
                 'persen' => $sumAlls != 0 ? (count($entertainment) / $sumAlls) * 100 : 0,
                 'count' => count($entertainment),
+                'trafik' => $trafik_entertainment,
             ],
         ];
 
@@ -316,33 +444,73 @@ class AkumulasiController extends Controller
             $u36_50 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 36 AND 50')->get();
             $u51_60 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 51 AND 60')->get();
             $lansia = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) > 60')->get();
+
+            $start_date = Carbon::now()->subDays(30)->toDateString();
+            $end_date = Carbon::now()->toDateString();
         }
+
+        $trafik_u18_25 = [];
+        $trafik_u26_35 = [];
+        $trafik_u36_50 = [];
+        $trafik_u51_60 = [];
+        $trafik_lansia = [];
+
+        while ($start_date <= $end_date) {
+
+            $u18_25Data = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 18 AND 25')->whereDate('updated_at', $start_date)->get();
+            $u26_35Data = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 26 AND 35')->whereDate('updated_at', $start_date)->get();
+            $u36_50Data = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 36 AND 50')->whereDate('updated_at', $start_date)->get();
+            $u51_60Data = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 51 AND 60')->whereDate('updated_at', $start_date)->get();
+            $lansiaData = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) > 60')->whereDate('updated_at', $start_date)->get();
+
+            $u18_25_count = count($u18_25Data);
+            $u26_35_count = count($u26_35Data);
+            $u36_50_count = count($u36_50Data);
+            $u51_60_count = count($u51_60Data);
+            $lansia_count = count($lansiaData);
+
+            $formatted_date = date('m-d-Y', strtotime($start_date));
+
+            $trafik_u18_25[$formatted_date] = $u18_25_count;
+            $trafik_u26_35[$formatted_date] = $u26_35_count;
+            $trafik_u36_50[$formatted_date] = $u36_50_count;
+            $trafik_u51_60[$formatted_date] = $u51_60_count;
+            $trafik_lansia[$formatted_date] = $lansia_count;
+
+            $start_date = date('Y-m-d', strtotime($start_date . ' +1 day'));
+        }
+
 
         $data = [
             'u18_25' => [
                 'datas' => $u18_25,
                 'persen' => $sumAlls != 0 ? (count($u18_25) / $sumAlls) * 100 : 0,
                 'count' => count($u18_25),
+                'trafik' => $trafik_u18_25,
             ],
             'u26_35' => [
                 'datas' => $u26_35,
                 'persen' => $sumAlls != 0 ? (count($u26_35) / $sumAlls) * 100 : 0,
                 'count' => count($u26_35),
+                'trafik' => $trafik_u26_35,
             ],
             'u36_50' => [
                 'datas' => $u36_50,
                 'persen' => $sumAlls != 0 ? (count($u36_50) / $sumAlls) * 100 : 0,
                 'count' => count($u36_50),
+                'trafik' => $trafik_u36_50,
             ],
             'u51_60' => [
                 'datas' => $u51_60,
                 'persen' => $sumAlls != 0 ? (count($u51_60) / $sumAlls) * 100 : 0,
                 'count' => count($u51_60),
+                'trafik' => $trafik_u51_60,
             ],
             'lansia' => [
                 'datas' => $lansia,
                 'persen' => $sumAlls != 0 ? (count($lansia) / $sumAlls) * 100 : 0,
                 'count' => count($lansia),
+                'trafik' => $trafik_lansia,
             ],
         ];
 
