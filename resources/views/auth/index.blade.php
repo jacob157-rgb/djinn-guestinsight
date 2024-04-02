@@ -14,9 +14,20 @@
 </head>
 
 <body>
-    <h2>Login</h2>
+    <div class="grid w-full h-screen grid-cols-2">
+        <div class="w-auto h-full bg-sky-900">
+            <img class="" src="{{ asset('assets/image/login.png') }}" alt="">
+        </div>
+        <div class="w-auto h-full bg-sky-600">
+            
+        </div>
+    </div>
 
-    @if ($errors->any())
+
+
+
+    
+    {{-- @if ($errors->any())
         <div style="color: red;">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -26,7 +37,7 @@
         </div>
     @endif
 
-    <form action="{{ url('login') }}" method="POST">
+    <form class="py-96" action="{{ url('login') }}" method="POST">
         @csrf
         <div>
             <label for="username">Username:</label><br>
@@ -39,7 +50,7 @@
         <div>
             <button type="submit">Login</button>
         </div>
-    </form>
+    </form> --}}
 </body>
 
 </html>
