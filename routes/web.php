@@ -29,37 +29,33 @@ Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::middleware(Permission::class)->group(function () {
+Route::middleware([Permission::class])->group(function () {
+    //beranda
+    Route::prefix('beranda')->group(function () {
+        //index
+        Route::get('/', [BerandaController::class, 'index']);
+        //filter date
+        Route::post('/', [BerandaController::class, 'index']);
+    });
+    //form
+    Route::prefix('form')->group(function () {
+        Route::get('/', [FormController::class, 'index']);
+        Route::post('/', [FormController::class, 'store']);
+        Route::put('/{id}', [FormController::class, 'update']);
+        Route::delete('/{id}', [FormController::class, 'destroy']);
+    });
+    //insight
+    Route::prefix('insight')->group(function () {
+        Route::get('/', [InsightController::class, 'index']);
+        //index
+        Route::post('/', [InsightController::class, 'index']);
+    });
 
-});
-
-//beranda
-Route::prefix('beranda')->group(function () {
-    //index
-    Route::get('/', [BerandaController::class, 'index']);
-    //filter date
-    Route::post('/', [BerandaController::class, 'index']);
-});
-
-//form
-Route::prefix('form')->group(function () {
-    Route::get('/', [FormController::class, 'index']);
-    Route::post('/', [FormController::class, 'store']);
-    Route::put('/{id}', [FormController::class, 'update']);
-    Route::delete('/{id}', [FormController::class, 'destroy']);
-});
-
-//insight
-Route::prefix('insight')->group(function () {
-    //index
-    Route::get('/', [InsightController::class, 'index']);
-    Route::post('/', [InsightController::class, 'index']);
-});
-
-//akumulasi
-Route::prefix('akumulasi')->group(function () {
-    //index
-    Route::get('/', [AkumulasiController::class, 'index']);
-    //filter date
-    Route::post('/', [AkumulasiController::class, 'index']);
+    //akumulasi
+    Route::prefix('akumulasi')->group(function () {
+        //index
+        Route::get('/', [AkumulasiController::class, 'index']);
+        //filter date
+        Route::post('/', [AkumulasiController::class, 'index']);
+    });
 });

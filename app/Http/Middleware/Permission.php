@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class Permission
@@ -13,13 +14,12 @@ class Permission
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $guard = null): Response
     {
-
-        if(auth()->user()) {
+        if (Auth::guard($guard)->check()) {
             return $next($request);
-        }else {
-            abort(500);
         }
+        return $next($request);
+        //return redirect()->guest(url('login'));
     }
 }

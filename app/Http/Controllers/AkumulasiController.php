@@ -52,7 +52,6 @@ class AkumulasiController extends Controller
             $end_date = Carbon::now()->toDateString();
         }
 
-
         $trafik_male = [];
         $trafik_female = [];
         $trafik_none = [];
@@ -246,7 +245,6 @@ class AkumulasiController extends Controller
         $trafik_pt = [];
 
         while ($start_date <= $end_date) {
-
             $tsData = Guest::where('education', 'TS')->whereDate('updated_at', $start_date)->get();
             $sdData = Guest::where('education', 'SD')->whereDate('updated_at', $start_date)->get();
             $smpData = Guest::where('education', 'SMP')->whereDate('updated_at', $start_date)->get();
@@ -267,10 +265,8 @@ class AkumulasiController extends Controller
             $trafik_sma[$formatted_date] = $sma_count;
             $trafik_pt[$formatted_date] = $pt_count;
 
-
             $start_date = date('Y-m-d', strtotime($start_date . ' +1 day'));
         }
-
 
         $data = [
             'ts' => [
@@ -350,7 +346,6 @@ class AkumulasiController extends Controller
         $trafik_entertainment = [];
 
         while ($start_date <= $end_date) {
-
             $webData = Guest::where('type_guest', 'WEB')->whereDate('updated_at', $start_date)->get();
             $workData = Guest::where('type_guest', 'WORK_IN_GUEST')->whereDate('updated_at', $start_date)->get();
             $ownerData = Guest::where('type_guest', 'OWNER')->whereDate('updated_at', $start_date)->get();
@@ -456,7 +451,6 @@ class AkumulasiController extends Controller
         $trafik_lansia = [];
 
         while ($start_date <= $end_date) {
-
             $u18_25Data = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 18 AND 25')->whereDate('updated_at', $start_date)->get();
             $u26_35Data = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 26 AND 35')->whereDate('updated_at', $start_date)->get();
             $u36_50Data = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 36 AND 50')->whereDate('updated_at', $start_date)->get();
@@ -479,7 +473,6 @@ class AkumulasiController extends Controller
 
             $start_date = date('Y-m-d', strtotime($start_date . ' +1 day'));
         }
-
 
         $data = [
             'u18_25' => [
@@ -570,67 +563,141 @@ class AkumulasiController extends Controller
             $pedagang = Guest::where('work', 'PEDAGANG')->get();
             $pengusaha = Guest::where('work', 'PENGUSAHA')->get();
             $tidakBekerja = Guest::where('work', 'TIDAK_BEKERJA')->get();
+
+            $start_date = Carbon::now()->subDays(30)->toDateString();
+            $end_date = Carbon::now()->toDateString();
         }
+
+        $trafik_wiraswasta = [];
+        $trafik_pns = [];
+        $trafik_tniPolri = [];
+        $trafik_guru = [];
+        $trafik_pelajar = [];
+        $trafik_freelancer = [];
+        $trafik_buruh = [];
+        $trafik_petani = [];
+        $trafik_nelayan = [];
+        $trafik_pedagang = [];
+        $trafik_pengusaha = [];
+        $trafik_tidakBekerja = [];
+
+        while ($start_date <= $end_date) {
+            $wiraswastaData = Guest::where('work', 'WIRASWASTA')->whereDate('updated_at', $start_date)->get();
+            $pnsData = Guest::where('work', 'PNS')->whereDate('updated_at', $start_date)->get();
+            $tniPolriData = Guest::where('work', 'TNI_POLRI')->whereDate('updated_at', $start_date)->get();
+            $guruData = Guest::where('work', 'GURU')->whereDate('updated_at', $start_date)->get();
+            $pelajarData = Guest::where('work', 'PELAJAR')->whereDate('updated_at', $start_date)->get();
+            $freelancerData = Guest::where('work', 'FREELANCER')->whereDate('updated_at', $start_date)->get();
+            $buruhData = Guest::where('work', 'BURUH')->whereDate('updated_at', $start_date)->get();
+            $petaniData = Guest::where('work', 'PETANI')->whereDate('updated_at', $start_date)->get();
+            $nelayanData = Guest::where('work', 'NELAYAN')->whereDate('updated_at', $start_date)->get();
+            $pedagangData = Guest::where('work', 'PEDAGANG')->whereDate('updated_at', $start_date)->get();
+            $pengusahaData = Guest::where('work', 'PENGUSAHA')->whereDate('updated_at', $start_date)->get();
+            $tidakBekerjaData = Guest::where('work', 'TIDAK_BEKERJA')->whereDate('updated_at', $start_date)->get();
+
+            $wiraswasta_count = count($wiraswastaData);
+            $pns_count = count($pnsData);
+            $tniPolri_count = count($tniPolriData);
+            $guru_count = count($guruData);
+            $pelajar_count = count($pelajarData);
+            $freelancer_count = count($freelancerData);
+            $buruh_count = count($buruhData);
+            $petani_count = count($petaniData);
+            $nelayan_count = count($nelayanData);
+            $pedagang_count = count($pedagangData);
+            $pengusaha_count = count($pengusahaData);
+            $tidakBekerja_count = count($tidakBekerjaData);
+
+            $formatted_date = date('m-d-Y', strtotime($start_date));
+
+            $trafik_wiraswasta[$formatted_date] = $wiraswasta_count;
+            $trafik_pns[$formatted_date] = $pns_count;
+            $trafik_tniPolri[$formatted_date] = $tniPolri_count;
+            $trafik_guru[$formatted_date] = $guru_count;
+            $trafik_pelajar[$formatted_date] = $pelajar_count;
+            $trafik_freelancer[$formatted_date] = $freelancer_count;
+            $trafik_buruh[$formatted_date] = $buruh_count;
+            $trafik_petani[$formatted_date] = $petani_count;
+            $trafik_nelayan[$formatted_date] = $nelayan_count;
+            $trafik_pedagang[$formatted_date] = $pedagang_count;
+            $trafik_pengusaha[$formatted_date] = $pengusaha_count;
+            $trafik_tidakBekerja[$formatted_date] = $tidakBekerja_count;
+
+            $start_date = date('Y-m-d', strtotime($start_date . ' +1 day'));
+        }
+
         $data = [
             'wiraswasta' => [
                 'datas' => $wiraswasta,
                 'persen' => $sumAlls != 0 ? (count($wiraswasta) / $sumAlls) * 100 : 0,
                 'count' => count($wiraswasta),
+                'trafik' => $trafik_wiraswasta,
             ],
             'pns' => [
                 'datas' => $pns,
                 'persen' => $sumAlls != 0 ? (count($pns) / $sumAlls) * 100 : 0,
                 'count' => count($pns),
+                'trafik' => $trafik_pns,
             ],
             'tniPolri' => [
                 'datas' => $tniPolri,
                 'persen' => $sumAlls != 0 ? (count($tniPolri) / $sumAlls) * 100 : 0,
                 'count' => count($tniPolri),
+                'trafik' => $trafik_tniPolri,
             ],
             'guru' => [
                 'datas' => $guru,
                 'persen' => $sumAlls != 0 ? (count($guru) / $sumAlls) * 100 : 0,
                 'count' => count($guru),
+                'trafik' => $trafik_guru,
             ],
             'pelajar' => [
                 'datas' => $pelajar,
                 'persen' => $sumAlls != 0 ? (count($pelajar) / $sumAlls) * 100 : 0,
                 'count' => count($pelajar),
+                'trafik' => $trafik_pelajar,
             ],
             'freelancer' => [
                 'datas' => $freelancer,
                 'persen' => $sumAlls != 0 ? (count($freelancer) / $sumAlls) * 100 : 0,
                 'count' => count($freelancer),
+                'trafik' => $trafik_freelancer,
             ],
             'buruh' => [
                 'datas' => $buruh,
                 'persen' => $sumAlls != 0 ? (count($buruh) / $sumAlls) * 100 : 0,
                 'count' => count($buruh),
+                'trafik' => $trafik_buruh,
             ],
             'petani' => [
                 'datas' => $petani,
                 'persen' => $sumAlls != 0 ? (count($petani) / $sumAlls) * 100 : 0,
                 'count' => count($petani),
+                'trafik' => $trafik_petani,
             ],
             'nelayan' => [
                 'datas' => $nelayan,
                 'persen' => $sumAlls != 0 ? (count($nelayan) / $sumAlls) * 100 : 0,
                 'count' => count($nelayan),
+                'trafik' => $trafik_nelayan,
             ],
             'pedagang' => [
                 'datas' => $pedagang,
                 'persen' => $sumAlls != 0 ? (count($pedagang) / $sumAlls) * 100 : 0,
                 'count' => count($pedagang),
+                'trafik' => $trafik_pedagang,
             ],
             'pengusaha' => [
                 'datas' => $pengusaha,
                 'persen' => $sumAlls != 0 ? (count($pengusaha) / $sumAlls) * 100 : 0,
                 'count' => count($pengusaha),
+                'trafik' => $trafik_pengusaha,
             ],
             'tidakBekerja' => [
                 'datas' => $tidakBekerja,
                 'persen' => $sumAlls != 0 ? (count($tidakBekerja) / $sumAlls) * 100 : 0,
                 'count' => count($tidakBekerja),
+                'trafik' => $trafik_tidakBekerja,
             ],
         ];
 
