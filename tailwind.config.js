@@ -9,7 +9,15 @@ module.exports = {
     fontFamily: {
       sans: ["Poppins", "sans-serif"],
     },
-    extend: {},
+    extend: {
+
+      colors: {
+        primary: '#E52228'
+      },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(to bottom, #E74348 100%, #E74348 0%)'
+      },
+    },
   },
   plugins: [],
 }
