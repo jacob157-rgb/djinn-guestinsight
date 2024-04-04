@@ -15,7 +15,9 @@ module.exports = {
         primary: '#E52228'
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(to bottom, #E74348 100%, #E74348 0%)'
+        'gradient-red': 'linear-gradient(to bottom, #E74348 100%, #E74348 0%)',
+        'gradient-blue': 'linear-gradient(to bottom, #4099FF 100%, #4099FF 0%)',
+        'gradient-green': 'linear-gradient(to bottom, #64E743 100%, #64E743 0%)'
       },
     },
   },

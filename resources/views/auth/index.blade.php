@@ -21,11 +21,21 @@
             <img class="object-cover w-full h-full rounded-xl" src="{{ asset('assets/image/login.png') }}"
                 alt="banner image" />
         </div>
-        <div class="flex items-center justify-center w-full h-full px-12 py-5 md:h-full">
+        <div class="absolute z-10 flex items-center justify-center w-full h-full px-12 py-5 bg-white bg-opacity-50 md:bg-opacity-100 md:bg-transparent md:static md:z-0 md:h-full backdrop-filter backdrop-blur-sm md:backdrop-blur-none md:backdrop-none">
             <div class="flex flex-col items-center">
                 <img class="w-1/5 h-1/5" src="{{ asset('assets/image/logo.png') }}" alt="logo image">
                 <h1 class="mt-5 text-3xl font-semibold text-primary">DJ INN</h1>
                 <p class="self-start mt-10 text-xl font-medium">Silahkan masuk untuk melanjutkan</p>
+                @if ($errors->any())
+                <div class="self-start text-primary">
+                    <p>Ada yang salah !</p>
+                    <ul class="list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <form class="flex flex-col w-full mt-5 space-y-2" action="{{ url('login') }}" method="POST">
                     @csrf
                     <div class="flex flex-col">
@@ -40,7 +50,7 @@
                             class="h-10 rounded-lg border border-gray-200 pl-[14px] text-sm" type="password"
                             id="password" name="password" required>
                     </div>
-                    <button class="flex items-center justify-center py-2 text-white rounded-lg bg-gradient-primary"
+                    <button class="flex items-center justify-center py-2 text-white rounded-lg hover:opacity-80 bg-gradient-red"
                         type="submit"><span class="material-symbols-outlined me-2">
                             encrypted
                         </span> Masuk</button>
@@ -49,15 +59,6 @@
         </div>
     </div>
 
-    {{-- @if ($errors->any())
-        <div style="color: red">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif --}}
 </body>
 
 </html>
