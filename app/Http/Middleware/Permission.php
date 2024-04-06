@@ -19,7 +19,7 @@ class Permission
         if (Auth::guard($guard)->check()) {
             return $next($request);
         }
-        return $next($request);
-        //return redirect()->guest(url('login'));
+        //return $next($request);
+        return redirect()->guest(url('/'));
     }
 }

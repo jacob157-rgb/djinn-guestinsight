@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function index()
+    public function index($guard = null)
     {
+        if(Auth::guard($guard)->check()) {
+            return redirect()->intended('/beranda');
+        }
         return view('auth.index');
     }
 
@@ -17,7 +21,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only('username', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/beranda');
         }
         return redirect()
             ->back()

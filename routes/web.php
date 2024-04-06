@@ -20,12 +20,10 @@ use Illuminate\Routing\RouteGroup;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 // login
-Route::get('/login', [AuthController::class, 'index']);
+Route::get('/', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 

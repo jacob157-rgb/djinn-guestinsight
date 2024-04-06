@@ -21,20 +21,30 @@
             <img class="object-cover w-full h-full rounded-xl" src="{{ asset('assets/image/login.png') }}"
                 alt="banner image" />
         </div>
-        <div class="absolute z-10 flex items-center justify-center w-full h-full px-12 py-5 bg-white bg-opacity-50 md:bg-opacity-100 md:bg-transparent md:static md:z-0 md:h-full backdrop-filter backdrop-blur-sm md:backdrop-blur-none md:backdrop-none">
+        <div
+            class="absolute z-10 flex items-center justify-center w-full h-full px-12 py-5 bg-white bg-opacity-50 md:bg-opacity-100 md:bg-transparent md:static md:z-0 md:h-full backdrop-filter backdrop-blur-sm md:backdrop-blur-none md:backdrop-none">
             <div class="flex flex-col items-center">
                 <img class="w-1/5 h-1/5" src="{{ asset('assets/image/logo.png') }}" alt="logo image">
                 <h1 class="mt-5 text-3xl font-semibold text-primary">DJ INN</h1>
                 <p class="self-start mt-10 text-xl font-medium">Silahkan masuk untuk melanjutkan</p>
                 @if ($errors->any())
-                <div class="self-start text-primary">
-                    <p>Ada yang salah !</p>
-                    <ul class="list-disc list-inside">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+                    <div class="flex p-4 mt-3 items-start justify-start w-full h-full text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Danger</span>
+                        <div>
+                            <span class="font-medium">Ada yang salah !</span>
+                            <ul class="mt-1.5 list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
                 @endif
                 <form class="flex flex-col w-full mt-5 space-y-2" action="{{ url('login') }}" method="POST">
                     @csrf
@@ -50,7 +60,8 @@
                             class="h-10 rounded-lg border border-gray-200 pl-[14px] text-sm" type="password"
                             id="password" name="password" required>
                     </div>
-                    <button class="flex items-center justify-center py-2 text-white rounded-lg hover:opacity-80 bg-gradient-red"
+                    <button
+                        class="flex items-center justify-center py-2 text-white rounded-lg hover:opacity-80 bg-gradient-red"
                         type="submit"><span class="material-symbols-outlined me-2">
                             encrypted
                         </span> Masuk</button>
