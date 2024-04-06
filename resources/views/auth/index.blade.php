@@ -32,7 +32,7 @@
                 <h1 class="mt-5 text-3xl font-semibold text-primary">DJ INN</h1>
                 <p class="self-start mt-10 text-xl font-medium">Silahkan masuk untuk melanjutkan</p>
                 @if ($errors->any())
-                    <div class="flex items-start justify-start w-full h-full p-4 mt-3 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                    <div class="flex items-start justify-start w-full h-full p-4 mt-3 text-sm rounded-lg text-primary bg-red-50"
                         role="alert">
                         <svg class="me-3 mt-[2px] inline h-4 w-4 flex-shrink-0" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

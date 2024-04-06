@@ -15,6 +15,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@marcreichel/alpine-typewriter": "^1.2.0",
         "alpinejs": "^3.13.8",
         "esbuild": "^0.20.2"
     }
