@@ -19,7 +19,9 @@ class Permission
         if (Auth::guard($guard)->check()) {
             return $next($request);
         }
-        //return $next($request);
-        return redirect()->guest(url('/'));
+        return redirect()
+            ->guest(url('/'))
+            ->withInput()
+            ->withErrors(['username' => 'Masukan username dan password terlebih dahulu !!!.']);
     }
 }

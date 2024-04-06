@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     public function index($guard = null)
     {
-        if(Auth::guard($guard)->check()) {
+        if (Auth::guard($guard)->check()) {
             return redirect()->intended('/beranda');
         }
         return view('auth.index');
