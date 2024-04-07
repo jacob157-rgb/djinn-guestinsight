@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Guest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,6 +12,22 @@ class BerandaController extends Controller
 {
     public function index(Request $request)
     {
+        
+        $currentHour = Carbon::now()->hour;
+        
+        if ($currentHour < 12) {
+            $greeting = 'Selamat Pagi';
+        } else if ($currentHour < 15) {
+            $greeting = 'Selamat Siang';
+        } else if ($currentHour < 18) {
+            $greeting = 'Selamat Sore';
+        } else {
+            $greeting = 'Selamat Malam';
+        }
+        
+        $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
+        $curr = Carbon::now()->format('g:i A');
+
         if ($request->start_date && $request->end_date) {
             $date_filter = Guest::whereBetween(DB::raw('DATE(updated_at)'), [$request->start_date, $request->end_date])->get();
         } else {
@@ -18,6 +35,10 @@ class BerandaController extends Controller
         }
 
         $data = [
+            'title' => 'Beranda',
+            'greeting' => $greeting,
+            'clock' => $curr,
+            'today' => $today,
             'count_admin' => User::count(),
             'count_guest' => Guest::count(),
             'data_filter_count' => $date_filter->count(),
@@ -26,7 +47,8 @@ class BerandaController extends Controller
             'endDate' => $request->end_date ?? ' ',
         ];
 
-        dd($data);
+
+        // dd($data);
         return view('v_beranda.index', $data);
     }
 

@@ -12,7 +12,8 @@ module.exports = {
     extend: {
 
       colors: {
-        primary: '#E52228'
+        primary: '#E52228',
+        gry: '#686868'
       },
       backgroundImage: {
         'gradient-red': 'linear-gradient(to bottom, #E74348 100%, #E74348 0%)',

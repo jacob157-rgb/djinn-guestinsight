@@ -1,31 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beranda</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    {{-- @vite('resources/css/app.css')
-    @vite('resources/js/app.js') --}}
-
-    {{-- CSS --}}
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-</head>
-
-<body>
-    <div class="flex w-screen h-screen bg-red-500">
-        <div class="w-1/4 h-screen bg-sky-500"></div>
-        <div class="w-3/4 h-screen bg-gray-500"></div>
+@extends('layouts.app')
+@section('content')
+    <div class="flex flex-col justify-between px-10 mt-8 md:flex-row">
+        <div class="flex flex-col">
+            <span class="text-xl md:text-3xl">{{ $title }}</span>
+            <span class="text-xl md:text-2xl">{{ $greeting }}, <span class="font-medium">{{ Auth::user()->name }}!</span></span>
+        </div>
+        <div class="flex flex-col mt-5 md:mt-0 md:items-end">
+            <span class="text-xl md:text-3xl">{{ $clock }}</span>
+            <span class="text-xl md:text-2xl">{{ $today }}</span>
+        </div>
     </div>
-    {{-- 
-    <form action="" method="post">
+
+    <div class="flex flex-col w-full px-3 mt-10 space-x-0 space-y-3 md:space-y-0 md:space-x-2 md:flex-row h-28">
+        <div class="w-full h-full rounded-lg md:w-1/2 bg-gradient-red"></div>
+        <div class="w-full h-full rounded-lg md:w-1/2 bg-gradient-blue"></div>
+    </div>
+
+    {{-- <form action="" method="post">
         @csrf
         <input type="date" name="start_date" value="{{ $startDate }}">
         <input type="date" name="end_date" value="{{ $endDate }}">
@@ -36,9 +27,4 @@
 
 
         <p>{{ $data_filter_count }}</p> --}}
-    {{-- JS --}}
-    <script src="{{ asset('assets/js/scripts.js') }}"></script>
-
-</body>
-
-</html>
+@endsection
