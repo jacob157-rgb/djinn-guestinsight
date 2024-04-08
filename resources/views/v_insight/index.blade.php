@@ -1,16 +1,30 @@
 @extends('layouts.app')
 @section('content')
-
-    <form class="flex p-3 space-x-3 bg-white rounded-full" action="" method="post">
+    <form class="flex items-center py-3 mt-5 space-x-3 bg-white rounded-full ms-10 w-fit pe-3 ps-1"
+        action="" method="post">
         @csrf
-        <input class="bg-white rounded-full drop-shadow-xl" type="date" name="start_date" value="{{ $startDate }}">
-        <input class="bg-white rounded-full drop-shadow-xl" type="date" name="end_date" value="{{ $endDate }}">
-        <button type="submit">filter</button>
+        <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="start_date"
+            value="{{ $startDate }}">
+        <span>to</span>
+        <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="end_date"
+            value="{{ $endDate }}">
+        <button class="flex justify-center px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="reset">
+            <span class="material-symbols-outlined">
+                restart_alt
+            </span> Reset
+        </button>
+        <button
+            class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-red drop-shadow-2xl"
+            type="submit"><span class="text-base font-bold material-symbols-outlined pe-2">
+                filter_alt
+            </span> Filter</button>
+        <button
+            class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-green drop-shadow-2xl"
+            type="button"><span class="text-base font-bold material-symbols-outlined pe-2">
+                ios_share
+            </span> Export</button>
     </form>
 
-
-
-    <a href="/akumulasi"><button>Reset</button></a>
 
 
     <p>total tamu : {{ $sum }}</p>

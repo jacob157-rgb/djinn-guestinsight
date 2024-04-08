@@ -57,7 +57,7 @@
             <form action="/logout" method="post">
                 @csrf
                 @method("DELETE")
-                <button type="submit" class="flex items-start pb-3 text-xl text-gry"><span
+                <button type="submit" class="flex items-center pb-3 text-xl text-gry"><span
                     class="px-3 text-3xl material-symbols-outlined">
                     logout
                 </span> Logout</button>
@@ -76,13 +76,14 @@
                 </div>
             </div>
             @yield('content')
+            <div>
+                <canvas id="myChart"></canvas>
+              </div>
         </div>
     </div>
     {{-- JS --}}
     @notifyJs
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
-    
-    
 </body>
 
 </html>
