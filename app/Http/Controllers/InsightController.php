@@ -45,7 +45,7 @@ class InsightController extends Controller
             'birth_date' => $this->getBirthDate($request->start_date, $request->end_date, $sumAlls),
         ];
 
-        //dd($data);
+        // dd($data);
         return view('v_insight.index', $data);
     }
 
