@@ -80,7 +80,7 @@
             @yield('content')
             <div>
                 <canvas id="myChart"></canvas>
-              </div>
+            </div>
         </div>
     </div>
     {{-- JS --}}
