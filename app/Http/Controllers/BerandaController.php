@@ -12,9 +12,9 @@ class BerandaController extends Controller
 {
     public function index(Request $request)
     {
-        
+
         $currentHour = Carbon::now()->hour;
-        
+
         if ($currentHour < 12) {
             $greeting = 'Selamat Pagi';
         } else if ($currentHour < 15) {
@@ -24,15 +24,17 @@ class BerandaController extends Controller
         } else {
             $greeting = 'Selamat Malam';
         }
-        
+
         $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
         $curr = Carbon::now()->format('g:i A');
 
         if ($request->start_date && $request->end_date) {
-            $date_filter = Guest::whereBetween(DB::raw('DATE(updated_at)'), [$request->start_date, $request->end_date])->get();
+            $date_filter = Guest::whereBetween(DB::raw('DATE(updated_at)'), [$request->start_date, $request->end_date])->paginate(20);
         } else {
-            $date_filter = Guest::orderBy('id', 'desc')->get();
+            $date_filter = Guest::orderBy('id', 'asc')->paginate(20);
         }
+
+
 
         $data = [
             'title' => 'Beranda',
@@ -48,7 +50,7 @@ class BerandaController extends Controller
         ];
 
 
-        // dd($data);
+        //dd($data);
         return view('v_beranda.index', $data);
     }
 

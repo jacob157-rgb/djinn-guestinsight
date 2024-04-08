@@ -18,7 +18,8 @@
 
     {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    
+
+
 </head>
 
 <body>
@@ -28,27 +29,27 @@
                 <img class="w-2/5 h-auto" src="{{ asset('assets/image/logo.png') }}" alt="logo image">
                 <h1 class="mt-5 text-4xl font-medium text-primary">DJ INN</h1>
                 <ul class="flex flex-col self-start mt-10 space-y-2">
-                    <li class="{{ request()->is('beranda') ? 'border-primary' : 'border-transparent'}} border-s-4">
-                        <a class="{{ request()->is('beranda') ? 'text-primary font-semibold' : 'text-gry font-medium'}} flex items-center text-xl" href="/beranda"><span
-                                class="px-5 text-4xl font-medium material-symbols-outlined">
+                    <li class="{{ request()->is('beranda') ? 'border-primary' : 'border-transparent' }} border-s-4">
+                        <a class="{{ request()->is('beranda') ? 'text-primary font-semibold' : 'text-gry font-medium' }} flex items-center text-xl"
+                            href="/beranda"><span class="px-5 text-4xl font-medium material-symbols-outlined">
                                 home
                             </span> Beranda</a>
                     </li>
-                    <li class="{{ request()->is('form') ? 'border-primary' : 'border-transparent'}} border-s-4">
-                        <a class="{{ request()->is('form') ? 'text-primary font-semibold' : 'text-gry font-medium'}} flex items-center text-xl" href="/form"><span
-                                class="px-5 text-4xl font-medium material-symbols-outlined">
+                    <li class="{{ request()->is('form') ? 'border-primary' : 'border-transparent' }} border-s-4">
+                        <a class="{{ request()->is('form') ? 'text-primary font-semibold' : 'text-gry font-medium' }} flex items-center text-xl"
+                            href="/form"><span class="px-5 text-4xl font-medium material-symbols-outlined">
                                 assignment_add
                             </span> Formulir</a>
                     </li>
-                    <li class="{{ request()->is('insight') ? 'border-primary' : 'border-transparent'}} border-s-4">
-                        <a class="{{ request()->is('insight') ? 'text-primary font-semibold' : 'text-gry font-medium'}} flex items-center text-xl" href="/insight"><span
-                                class="px-5 text-4xl font-medium material-symbols-outlined">
+                    <li class="{{ request()->is('insight') ? 'border-primary' : 'border-transparent' }} border-s-4">
+                        <a class="{{ request()->is('insight') ? 'text-primary font-semibold' : 'text-gry font-medium' }} flex items-center text-xl"
+                            href="/insight"><span class="px-5 text-4xl font-medium material-symbols-outlined">
                                 bar_chart
                             </span> Insight</a>
                     </li>
-                    <li class="{{ request()->is('akumulasi') ? 'border-primary' : 'border-transparent'}} border-s-4">
-                        <a class="{{ request()->is('akumulasi') ? 'text-primary font-semibold' : 'text-gry font-medium'}} flex items-center text-xl" href="/akumulasi"><span
-                                class="px-5 text-4xl font-medium material-symbols-outlined">
+                    <li class="{{ request()->is('akumulasi') ? 'border-primary' : 'border-transparent' }} border-s-4">
+                        <a class="{{ request()->is('akumulasi') ? 'text-primary font-semibold' : 'text-gry font-medium' }} flex items-center text-xl"
+                            href="/akumulasi"><span class="px-5 text-4xl font-medium material-symbols-outlined">
                                 person
                             </span> Akumulasi</a>
                     </li>
@@ -68,7 +69,8 @@
             <div class="flex flex-col justify-between px-10 mt-8 md:flex-row">
                 <div class="flex flex-col">
                     <span class="text-xl md:text-3xl">{{ $title }}</span>
-                    <span class="text-xl md:text-2xl">{{ $greeting }}, <span class="font-medium">{{ Auth::user()->name }}!</span></span>
+                    <span class="text-xl md:text-2xl">{{ $greeting }}, <span
+                            class="font-medium">{{ Auth::user()->name }}!</span></span>
                 </div>
                 <div class="flex flex-col mt-5 md:mt-0 md:items-end">
                     <span class="text-xl md:text-3xl">{{ $clock }}</span>
@@ -84,6 +86,26 @@
     {{-- JS --}}
     @notifyJs
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').on('input', function() {
+                var searchText = $(this).val().toLowerCase();
+                $('#dataTable tbody tr').each(function() {
+                    var rowData = $(this).text().toLowerCase();
+                    if (rowData.indexOf(searchText) === -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+        var rowCount = $('#dataTable tbody tr:visible').length;
+            $('#dataFilterCount').text(rowCount);
+    </script>
+
 </body>
 
 </html>
