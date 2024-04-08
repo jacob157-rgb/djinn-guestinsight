@@ -48,8 +48,7 @@
                 </thead>
                 <tbody>
                     @foreach ($data_filter as $index => $row)
-                        <tr
-                            class="border-b odd:bg-white even:bg-gray-50 ">
+                        <tr class="border-b odd:bg-white even:bg-gray-50 ">
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $index + 1 }}</td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -71,8 +70,13 @@
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $row->type_guest }}</td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                <a href="#"
+                                <a href="form/{{ $row->id }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <span class="mx-2"> | </span>
+                                <a href="#" onclick="confirmDelete(event, '{{ $row->id }}')"
+                                    class="font-medium text-red-600 dark:text-red-500 hover:underline">Hapus</a>
+                                <form id="deleteForm_{{ $row->id }}" action="form/{{ $row->id }}"
+                                    method="post">@csrf @method('DELETE') <button type="submit"></button></form>
 
                             </td>
                         </tr>
@@ -81,6 +85,79 @@
             </table>
         </div>
         <br>
-        {{ $data_filter->links() }}
+
+        <nav class="flex justify-between items-center gap-x-1">
+            <button type="button" onclick="previousPage()"
+                class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
+                <svg class="flex-shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6"></path>
+                </svg>
+                <span aria-hidden="true" class="hidden sm:block">Previous</span>
+            </button>
+            <div class="flex items-center gap-x-1">
+                @for ($i = 0; $i < $pagination['lastPage']; $i++)
+                    <button type="button" onclick="changePage({{ $i + 1 }})"
+                        class="min-h-[38px] min-w-[38px] flex justify-center items-center {{ $i + 1 == $pagination['currentPage'] ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-800' }} py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-300 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-600 dark:text-white dark:focus:bg-gray-500"
+                        aria-current="page">{{ $i + 1 }}</button>
+                @endfor
+            </div>
+            <button type="button" onclick="nextPage()"
+                class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
+                <span aria-hidden="true" class="hidden sm:block">Next</span>
+                <svg class="flex-shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg>
+            </button>
+        </nav>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function changePage(page) {
+            var currentUrl = window.location.href;
+            var newUrl = currentUrl.split('?')[0] + '?page=' + page;
+            window.location.href = newUrl;
+        }
+
+        function previousPage() {
+            var page = parseInt("{{ $pagination['currentPage'] }}");
+            var currentUrl = "{{ $pagination['path'] }}";
+            var newUrl = currentUrl + '?page=' + (page - 1);
+            console.log(newUrl)
+            window.location.href = newUrl;
+        }
+
+        function nextPage() {
+            var page = parseInt("{{ $pagination['currentPage'] }}");
+            var currentUrl = "{{ $pagination['path'] }}";
+            var newUrl = currentUrl + '?page=' + (page + 1);
+            console.log(newUrl)
+            window.location.href = newUrl;
+        }
+
+        function confirmDelete(event, id) {
+            event.preventDefault();
+            if (confirm('Apakah Anda yakin ingin menghapus?')) {
+                document.getElementById('deleteForm_' + id).submit();
+            }
+        }
+
+        $(document).ready(function() {
+            $('#searchInput').on('input', function() {
+                var searchText = $(this).val().toLowerCase();
+                $('#dataTable tbody tr').each(function() {
+                    var rowData = $(this).text().toLowerCase();
+                    if (rowData.indexOf(searchText) === -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

@@ -12,14 +12,13 @@ class BerandaController extends Controller
 {
     public function index(Request $request)
     {
-
         $currentHour = Carbon::now()->hour;
 
         if ($currentHour < 12) {
             $greeting = 'Selamat Pagi';
-        } else if ($currentHour < 15) {
+        } elseif ($currentHour < 15) {
             $greeting = 'Selamat Siang';
-        } else if ($currentHour < 18) {
+        } elseif ($currentHour < 18) {
             $greeting = 'Selamat Sore';
         } else {
             $greeting = 'Selamat Malam';
@@ -31,10 +30,8 @@ class BerandaController extends Controller
         if ($request->start_date && $request->end_date) {
             $date_filter = Guest::whereBetween(DB::raw('DATE(updated_at)'), [$request->start_date, $request->end_date])->paginate(20);
         } else {
-            $date_filter = Guest::orderBy('id', 'asc')->paginate(20);
+            $date_filter = Guest::orderBy('id', 'asc')->paginate(10);
         }
-
-
 
         $data = [
             'title' => 'Beranda',
@@ -47,71 +44,76 @@ class BerandaController extends Controller
             'data_filter' => $date_filter,
             'startDate' => $request->start_date ?? ' ',
             'endDate' => $request->end_date ?? ' ',
+            'pagination' => [
+                'total' => $date_filter->total(),
+                'onEachSide' => $date_filter->onEachSide,
+                'currentPage' => $date_filter->currentPage(),
+                'lastPage' => $date_filter->lastPage(),
+                'perPage' => $date_filter->perPage(),
+                'path' => $date_filter->path(),
+            ],
         ];
-
 
         //dd($data);
         return view('v_beranda.index', $data);
     }
 
-
-
     public function index1()
     {
-            $sumAlls = Guest::count();
+        $sumAlls = Guest::count();
 
-            //klasifikasi daerah
-            $tegal = Guest::where('region', 'TEGAL')->count();
-            $slawi = Guest::where('region', 'SLAWI')->count();
-            $brebes = Guest::where('region', 'BREBES')->count();
-            $pemalang = Guest::where('region', 'PEMALANG')->count();
-            $jateng = Guest::where('region', 'JATENG')->count();
-            $luarJateng = Guest::where('region', 'LUAR_JATENG')->count();
+        //klasifikasi daerah
+        $tegal = Guest::where('region', 'TEGAL')->count();
+        $slawi = Guest::where('region', 'SLAWI')->count();
+        $brebes = Guest::where('region', 'BREBES')->count();
+        $pemalang = Guest::where('region', 'PEMALANG')->count();
+        $jateng = Guest::where('region', 'JATENG')->count();
+        $luarJateng = Guest::where('region', 'LUAR_JATENG')->count();
 
-            //klasifikasi gender
-            $male = Guest::where('gender', 'L')->count();
-            $female = Guest::where('gender', 'P')->count();
-            $none = Guest::where('gender', 'N')->count();
+        //klasifikasi gender
+        $male = Guest::where('gender', 'L')->count();
+        $female = Guest::where('gender', 'P')->count();
+        $none = Guest::where('gender', 'N')->count();
 
-            //klasifikasi pendidikan
-            $ts = Guest::where('education', 'TS')->count();
-            $sd = Guest::where('education', 'SD')->count();
-            $smp = Guest::where('education', 'SMP')->count();
-            $sma = Guest::where('education', 'SMA')->count();
-            $pt = Guest::where('education', 'PT')->count();
+        //klasifikasi pendidikan
+        $ts = Guest::where('education', 'TS')->count();
+        $sd = Guest::where('education', 'SD')->count();
+        $smp = Guest::where('education', 'SMP')->count();
+        $sma = Guest::where('education', 'SMA')->count();
+        $pt = Guest::where('education', 'PT')->count();
 
-            //klasifikasi jenis tamu
-            $web = Guest::where('type_guest', 'WEB')->count();
-            $work = Guest::where('type_guest', 'WORK_IN_GUEST')->count();
-            $owner = Guest::where('type_guest', 'OWNER')->count();
-            $travel = Guest::where('type_guest', 'TRAVEL')->count();
-            $coorporate = Guest::where('type_guest', 'COORPORATE_FAMILY')->count();
-            $entertainment = Guest::where('type_guest', 'ENTERTAINMENT')->count();
+        //klasifikasi jenis tamu
+        $web = Guest::where('type_guest', 'WEB')->count();
+        $work = Guest::where('type_guest', 'WORK_IN_GUEST')->count();
+        $owner = Guest::where('type_guest', 'OWNER')->count();
+        $travel = Guest::where('type_guest', 'TRAVEL')->count();
+        $coorporate = Guest::where('type_guest', 'COORPORATE_FAMILY')->count();
+        $entertainment = Guest::where('type_guest', 'ENTERTAINMENT')->count();
 
-            //klasifikasi pekerjaan
-            $wiraswasta = Guest::where('work', 'WIRASWASTA')->count();
-            $pns = Guest::where('work', 'PNS')->count();
-            $tniPolri = Guest::where('work', 'TNI_POLRI')->count();
-            $guru = Guest::where('work', 'GURU')->count();
-            $pelajar = Guest::where('work', 'PELAJAR')->count();
-            $freelancer = Guest::where('work', 'FREELANCER')->count();
-            $buruh = Guest::where('work', 'BURUH')->count();
-            $petani = Guest::where('work', 'PETANI')->count();
-            $nelayan = Guest::where('work', 'NELAYAN')->count();
-            $pedagang = Guest::where('work', 'PEDAGANG')->count();
-            $pengusaha = Guest::where('work', 'PENGUSAHA')->count();
-            $tidakBekerja = Guest::where('work', 'TIDAK_BEKERJA')->count();
+        //klasifikasi pekerjaan
+        $wiraswasta = Guest::where('work', 'WIRASWASTA')->count();
+        $pns = Guest::where('work', 'PNS')->count();
+        $tniPolri = Guest::where('work', 'TNI_POLRI')->count();
+        $guru = Guest::where('work', 'GURU')->count();
+        $pelajar = Guest::where('work', 'PELAJAR')->count();
+        $freelancer = Guest::where('work', 'FREELANCER')->count();
+        $buruh = Guest::where('work', 'BURUH')->count();
+        $petani = Guest::where('work', 'PETANI')->count();
+        $nelayan = Guest::where('work', 'NELAYAN')->count();
+        $pedagang = Guest::where('work', 'PEDAGANG')->count();
+        $pengusaha = Guest::where('work', 'PENGUSAHA')->count();
+        $tidakBekerja = Guest::where('work', 'TIDAK_BEKERJA')->count();
 
-            //klasifikasi Usia
-            $u18_25 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 18 AND 25')->count();
+        //klasifikasi Usia
+        $u18_25 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 18 AND 25')->count();
 
-            $u26_35 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 26 AND 35')->count();
+        $u26_35 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 26 AND 35')->count();
 
-            $u36_50 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 36 AND 50')->count();
+        $u36_50 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 36 AND 50')->count();
 
-            $u51_60 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 51 AND 60')->count();
+        $u51_60 = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 51 AND 60')->count();
 
-            $lansia = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) > 60')->count();
+        $lansia = Guest::whereRaw('TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) > 60')->count();
 
         $data = [
             'sum' => $sumAlls,

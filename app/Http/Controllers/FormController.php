@@ -11,17 +11,17 @@ class FormController extends Controller
     public function index()
     {
         $currentHour = Carbon::now()->hour;
-        
+
         if ($currentHour < 12) {
             $greeting = 'Selamat Pagi';
-        } else if ($currentHour < 15) {
+        } elseif ($currentHour < 15) {
             $greeting = 'Selamat Siang';
-        } else if ($currentHour < 18) {
+        } elseif ($currentHour < 18) {
             $greeting = 'Selamat Sore';
         } else {
             $greeting = 'Selamat Malam';
         }
-        
+
         $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
         $curr = Carbon::now()->format('g:i A');
 
@@ -74,6 +74,39 @@ class FormController extends Controller
         return redirect('/form');
         // ->with('msg', 'Guest created successfully!')
     }
+    public function edit($id)
+    {
+        $currentHour = Carbon::now()->hour;
+
+        if ($currentHour < 12) {
+            $greeting = 'Selamat Pagi';
+        } elseif ($currentHour < 15) {
+            $greeting = 'Selamat Siang';
+        } elseif ($currentHour < 18) {
+            $greeting = 'Selamat Sore';
+        } else {
+            $greeting = 'Selamat Malam';
+        }
+
+        $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
+        $curr = Carbon::now()->format('g:i A');
+        $validateData = Guest::find($id);
+        if ($validateData) {
+            $data = Guest::find($id);
+        } else {
+            abort(404);
+        }
+
+        $data = [
+            'title' => 'Edit Data',
+            'data' => $data,
+            'clock' => $curr,
+            'today' => $today,
+            'greeting' => $greeting,
+        ];
+
+        return view('v_form.edit', $data);
+    }
 
     public function update(Request $request, $id)
     {
@@ -110,15 +143,15 @@ class FormController extends Controller
         );
 
         $guest->update($validatedData);
-
-        return redirect('/form')->with('msg', 'Guest updated successfully!');
+        notify()->success('Data Tamu berhasil diedit!');
+        return redirect('/beranda');
     }
 
     public function destroy($id)
     {
         $guest = Guest::findOrFail($id);
         $guest->delete();
-
-        return redirect('/form')->with('msg', 'Guest deleted successfully!');
+        notify()->success('Data Tamu berhasil dihapus!');
+        return redirect('/beranda');
     }
 }

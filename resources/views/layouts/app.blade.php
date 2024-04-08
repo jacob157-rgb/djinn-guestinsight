@@ -86,25 +86,8 @@
     {{-- JS --}}
     @notifyJs
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#searchInput').on('input', function() {
-                var searchText = $(this).val().toLowerCase();
-                $('#dataTable tbody tr').each(function() {
-                    var rowData = $(this).text().toLowerCase();
-                    if (rowData.indexOf(searchText) === -1) {
-                        $(this).hide();
-                    } else {
-                        $(this).show();
-                    }
-                });
-            });
-        });
-        var rowCount = $('#dataTable tbody tr:visible').length;
-            $('#dataFilterCount').text(rowCount);
-    </script>
 
 </body>
 

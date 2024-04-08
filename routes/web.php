@@ -38,6 +38,7 @@ Route::middleware([Permission::class])->group(function () {
     //form
     Route::prefix('form')->group(function () {
         Route::get('/', [FormController::class, 'index']);
+        Route::get('/{id}', [FormController::class, 'edit']);
         Route::post('/', [FormController::class, 'store']);
         Route::put('/{id}', [FormController::class, 'update']);
         Route::delete('/{id}', [FormController::class, 'destroy']);
