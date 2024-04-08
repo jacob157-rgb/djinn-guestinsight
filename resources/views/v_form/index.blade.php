@@ -8,21 +8,37 @@
                 <div class="flex" class="flex">
                     <label class="w-1/5" for="ID_identity">No Identitas :</label>
                     <input class="w-4/5 p-2 border border-black rounded-lg" type="text" id="ID_identity"
-                        name="ID_identity" required><br>
+                        name="ID_identity" required value="{{ old('ID_identity') }}"><br>
                 </div>
+                <span class="ml-40">
+                    @error('ID_identity')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </span>
                 <div class="flex">
                     <label class="w-1/5" for="name">Nama :</label>
                     <input class="w-4/5 p-2 border border-black rounded-lg" type="text" id="name" name="name"
-                        required><br>
+                        required value="{{ old('name') }}"><br>
                 </div>
+                <span class="ml-40">
+                    @error('name')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </span>
                 <div class="flex">
                     <label class="w-1/5" for="address">Alamat :</label>
                     <input class="w-4/5 p-2 border border-black rounded-lg" type="text" id="address" name="address"
-                        required><br>
+                        required value="{{ old('address') }}"><br>
                 </div>
+                <span class="ml-40">
+                    @error('address')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </span>
                 <div class="flex">
                     <label class="w-1/5" for="region">Kota :</label>
-                    <select class="w-4/5 p-2 border border-black rounded-lg" id="region" name="region" required>
+                    <select class="w-4/5 p-2 border border-black rounded-lg" id="region" name="region" required
+                        value="{{ old('region') }}">
                         <option selected>-- Pilih Kota --</option>
                         <option value="TEGAL">TEGAL</option>
                         <option value="SLAWI">SLAWI</option>
@@ -32,14 +48,25 @@
                         <option value="LUAR_JATENG">LUAR JATENG</option>
                     </select><br>
                 </div>
+                <span class="ml-40">
+                    @error('region')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </span>
                 <div class="flex">
                     <label class="w-1/5" for="birth_date">Tanggal Lahir :</label>
                     <input class="w-4/5 p-2 border border-black rounded-lg pe-0" type="date" id="birth_date"
-                        name="birth_date" required><br>
+                        name="birth_date" required value="{{ old('birth_date') }}"><br>
                 </div>
+                <span class="ml-40">
+                    @error('birth_date')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </span>
                 <div class="flex">
                     <label class="w-1/5" for="work">Pekerjaan :</label>
-                    <select class="w-4/5 p-2 border border-black rounded-lg" id="work" name="work" required>
+                    <select class="w-4/5 p-2 border border-black rounded-lg" id="work" name="work" required
+                        value="{{ old('work') }}">
                         <option selected>-- Pilih Pekerjaan --</option>
                         <option value="WIRASWASTA">WIRASWASTA</option>
                         <option value="PNS">PNS</option>
@@ -55,29 +82,47 @@
                         <option value="TIDAK_BEKERJA">TIDAK BEKERJA</option>
                     </select><br>
                 </div>
+                <span class="ml-40">
+                    @error('work')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </span>
                 <div class="flex">
                     <label class="w-1/5" for="education">Pendidikan :</label>
-                    <select class="w-4/5 p-2 border border-black rounded-lg" id="education" name="education" required>
+                    <select class="w-4/5 p-2 border border-black rounded-lg" id="education" name="education" required
+                        value="{{ old('education') }}">
                         <option selected>-- Pilih Pendidikan --</option>
-                        <option value="TS">TS</option>
-                        <option value="SD">SD</option>
-                        <option value="SMP">SMP</option>
-                        <option value="SMA">SMA</option>
-                        <option value="PT">PT</option>
+                        <option value="TS">TIDAK SEKOLAH</option>
+                        <option value="SD">SD/MI</option>
+                        <option value="SMP">SMP/MTS</option>
+                        <option value="SMA">SMA/SMK</option>
+                        <option value="PT">PERGURUAN TINGGI</option>
                     </select><br>
                 </div>
+                <span class="ml-40">
+                    @error('education')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </span>
                 <div class="flex">
                     <label class="w-1/5" for="gender">Gender :</label>
-                    <select class="w-4/5 p-2 border border-black rounded-lg" id="gender" name="gender" required>
+                    <select class="w-4/5 p-2 border border-black rounded-lg" id="gender" name="gender" required
+                        value="{{ old('gender') }}">
                         <option selected>-- Pilih Gender --</option>
-                        <option value="L">L</option>
-                        <option value="P">P</option>
-                        <option value="N">N</option>
+                        <option value="L">LAKI-LAKI</option>
+                        <option value="P">PEREMPUAN</option>
+                        <option value="N">NONE</option>
                     </select><br>
                 </div>
+                <span class="ml-40">
+                    @error('gender')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </span>
                 <div class="flex">
                     <label class="w-1/5" for="type_guest">Jenis Tamu :</label>
-                    <select class="w-4/5 p-2 border border-black rounded-lg" id="type_guest" name="type_guest" required>
+                    <select class="w-4/5 p-2 border border-black rounded-lg" id="type_guest" name="type_guest" required
+                        value="{{ old('type_guest') }}">
                         <option selected>-- Pilih Jenis Tamu --</option>
                         <option value="WEB">WEB</option>
                         <option value="WORK_IN_GUEST">WORK IN GUEST</option>
@@ -87,6 +132,11 @@
                         <option value="ENTERTAINMENT">ENTERTAINMENT</option>
                     </select><br>
                 </div>
+                <span class="ml-40">
+                    @error('type_guest')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </span>
                 <div class="flex self-end justify-end w-full">
                     <button class="flex justify-center w-4/5 py-2 text-white rounded-lg bg-gradient-red"
                         type="submit">Tambah <span class="material-symbols-outlined">
