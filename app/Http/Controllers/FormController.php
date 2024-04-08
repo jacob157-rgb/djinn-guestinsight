@@ -3,13 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
 {
     public function index()
     {
-        return view('v_form.index');
+        $currentHour = Carbon::now()->hour;
+        
+        if ($currentHour < 12) {
+            $greeting = 'Selamat Pagi';
+        } else if ($currentHour < 15) {
+            $greeting = 'Selamat Siang';
+        } else if ($currentHour < 18) {
+            $greeting = 'Selamat Sore';
+        } else {
+            $greeting = 'Selamat Malam';
+        }
+        
+        $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
+        $curr = Carbon::now()->format('g:i A');
+
+        $data = [
+            'title' => 'Tambah Formulir',
+            'greeting' => $greeting,
+            'clock' => $curr,
+            'today' => $today,
+        ];
+        return view('v_form.index', $data);
     }
 
     public function store(Request $request)
