@@ -25,7 +25,7 @@ use Illuminate\Routing\RouteGroup;
 // login
 Route::get('/', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::delete('/logout', [AuthController::class, 'logout']);
 
 Route::middleware([Permission::class])->group(function () {
     //beranda

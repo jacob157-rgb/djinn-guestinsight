@@ -70,7 +70,9 @@ class FormController extends Controller
 
         Guest::create($validatedData);
 
-        return redirect('/form')->with('msg', 'Guest created successfully!');
+        notify()->success('Data Tamu Telah Ditambahkan!');
+        return redirect('/form');
+        // ->with('msg', 'Guest created successfully!')
     }
 
     public function update(Request $request, $id)

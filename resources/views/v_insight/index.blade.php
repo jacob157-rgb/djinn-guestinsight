@@ -1,11 +1,15 @@
 @extends('layouts.app')
 @section('content')
-    <form action="" method="post">
+
+    <form class="flex p-3 space-x-3 bg-white rounded-full" action="" method="post">
         @csrf
-        <input type="date" name="start_date" value="{{ $startDate }}">
-        <input type="date" name="end_date" value="{{ $endDate }}">
+        <input class="bg-white rounded-full drop-shadow-xl" type="date" name="start_date" value="{{ $startDate }}">
+        <input class="bg-white rounded-full drop-shadow-xl" type="date" name="end_date" value="{{ $endDate }}">
         <button type="submit">filter</button>
     </form>
+
+
+
     <a href="/akumulasi"><button>Reset</button></a>
 
 

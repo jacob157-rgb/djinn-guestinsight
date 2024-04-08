@@ -14,9 +14,11 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
+    @notifyCss
 
     {{-- CSS --}}
-    {{-- <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    
 </head>
 
 <body>
@@ -52,12 +54,17 @@
                     </li>
                 </ul>
             </div>
-            <a class="flex items-center pb-3 text-xl text-gry" href="/logout"><span
+            <form action="/logout" method="post">
+                @csrf
+                @method("DELETE")
+                <button type="submit" class="flex items-start pb-3 text-xl text-gry"><span
                     class="px-3 text-3xl material-symbols-outlined">
                     logout
-                </span> Logout</a>
+                </span> Logout</button>
+            </form>
         </aside>
         <div class="w-3/4 h-screen overflow-y-auto bg-gray-200">
+            <x-notify::notify />
             <div class="flex flex-col justify-between px-10 mt-8 md:flex-row">
                 <div class="flex flex-col">
                     <span class="text-xl md:text-3xl">{{ $title }}</span>
@@ -72,7 +79,10 @@
         </div>
     </div>
     {{-- JS --}}
-    {{-- <script src="{{ asset('assets/js/scripts.js') }}"></script> --}}
+    @notifyJs
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    
+    
 </body>
 
 </html>

@@ -23,6 +23,7 @@
                 <div class="flex">
                     <label class="w-1/5" for="region">Kota :</label>
                     <select class="w-4/5 p-2 border border-black rounded-lg" id="region" name="region" required>
+                        <option selected>-- Pilih Kota --</option>
                         <option value="TEGAL">TEGAL</option>
                         <option value="SLAWI">SLAWI</option>
                         <option value="BREBES">BREBES</option>
@@ -39,6 +40,7 @@
                 <div class="flex">
                     <label class="w-1/5" for="work">Pekerjaan :</label>
                     <select class="w-4/5 p-2 border border-black rounded-lg" id="work" name="work" required>
+                        <option selected>-- Pilih Pekerjaan --</option>
                         <option value="WIRASWASTA">WIRASWASTA</option>
                         <option value="PNS">PNS</option>
                         <option value="TNI_POLRI">TNI/POLRI</option>
@@ -56,6 +58,7 @@
                 <div class="flex">
                     <label class="w-1/5" for="education">Pendidikan :</label>
                     <select class="w-4/5 p-2 border border-black rounded-lg" id="education" name="education" required>
+                        <option selected>-- Pilih Pendidikan --</option>
                         <option value="TS">TS</option>
                         <option value="SD">SD</option>
                         <option value="SMP">SMP</option>
@@ -66,6 +69,7 @@
                 <div class="flex">
                     <label class="w-1/5" for="gender">Gender :</label>
                     <select class="w-4/5 p-2 border border-black rounded-lg" id="gender" name="gender" required>
+                        <option selected>-- Pilih Gender --</option>
                         <option value="L">L</option>
                         <option value="P">P</option>
                         <option value="N">N</option>
@@ -74,6 +78,7 @@
                 <div class="flex">
                     <label class="w-1/5" for="type_guest">Jenis Tamu :</label>
                     <select class="w-4/5 p-2 border border-black rounded-lg" id="type_guest" name="type_guest" required>
+                        <option selected>-- Pilih Jenis Tamu --</option>
                         <option value="WEB">WEB</option>
                         <option value="WORK_IN_GUEST">WORK IN GUEST</option>
                         <option value="OWNER">OWNER</option>
