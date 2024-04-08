@@ -24,7 +24,7 @@
                 ios_share
             </span> Export</button>
     </form>
-    <div class="w-full px-10 mt-8">
+    <div class="w-full px-10 my-8">
         <div class="w-full p-8 bg-white rounded-xl">
             <div class="grid grid-cols-2 gap-3">
                 <div
