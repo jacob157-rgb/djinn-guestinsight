@@ -48,6 +48,8 @@ Route::middleware([Permission::class])->group(function () {
         Route::get('/', [InsightController::class, 'index']);
         //index
         Route::post('/', [InsightController::class, 'index']);
+        //export
+        Route::post('/export', [InsightController::class, 'export']);
     });
 
     //akumulasi

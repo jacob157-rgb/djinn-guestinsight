@@ -18,12 +18,39 @@
             type="submit"><span class="text-base font-bold material-symbols-outlined pe-2">
                 filter_alt
             </span> Filter</button>
-        <button
+        <button id="export"
             class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-green drop-shadow-2xl"
             type="button"><span class="text-base font-bold material-symbols-outlined pe-2">
                 ios_share
             </span> Export</button>
     </form>
+
+    <div id="modalExport" style="display: none;"
+        class="flex  flex-col m-auto mt-5 max-w-xl p-8 shadow-sm rounded-xl lg:p-12 bg-gray-50 text-gray-800">
+        <form action="/insight/export" method="post">
+            @csrf
+            <div class="flex flex-col w-full">
+                <label class="w-1/5" for="name">FileName :</label>
+                <input class="w-4/5 p-2 border border-black rounded-lg" type="text" id="filename" name="filename"
+                    required value="{{ old('filename') }}"><br>
+                <div class="flex">
+                    <input class="px-3 py-1 bg-white rounded-lg drop-shadow-2xl" type="date" name="start_date_export"
+                        value="">
+                    <span
+                        class="px-3 mx-2 py-1 bg-gradient-red text-white font-semibold rounded-lg drop-shadow-2xl">to</span>
+                    <input class="px-3 py-1 bg-white rounded-lg drop-shadow-2xl" type="date" name="end_date_export"
+                        value="">
+                </div>
+                <button
+                    class="flex justify-center ml-auto w-40 mt-5 px-5 py-1 font-medium text-white rounded-lg text-md bg-gradient-red drop-shadow-2xl"
+                    type="submit"><span class="text-base font-bold material-symbols-outlined pe-2">
+                        download
+                    </span> Download</button>
+            </div>
+        </form>
+    </div>
+
+
     <div class="w-full px-10 my-8">
         <div class="w-full p-8 bg-white rounded-xl">
             <div class="flex mb-2">
@@ -80,6 +107,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         const daerah = document.getElementById('cDaerah');
         const gender = document.getElementById('cGender');
@@ -286,6 +314,12 @@
                     }
                 }
             }
+        });
+
+        $(document).ready(function() {
+            $("#export").click(function() {
+                $("#modalExport").toggle();
+            });
         });
     </script>
 

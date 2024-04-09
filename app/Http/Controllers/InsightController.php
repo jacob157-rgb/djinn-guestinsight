@@ -6,8 +6,10 @@ use DateTime;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Guest;
+use App\Exports\Insight;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InsightController extends Controller
 {
@@ -17,9 +19,9 @@ class InsightController extends Controller
 
         if ($currentHour < 12) {
             $greeting = 'Selamat Pagi';
-        } else if ($currentHour < 15) {
+        } elseif ($currentHour < 15) {
             $greeting = 'Selamat Siang';
-        } else if ($currentHour < 18) {
+        } elseif ($currentHour < 18) {
             $greeting = 'Selamat Sore';
         } else {
             $greeting = 'Selamat Malam';
@@ -75,8 +77,6 @@ class InsightController extends Controller
             $start_date = Carbon::now()->subDays(30)->toDateString();
             $end_date = Carbon::now()->toDateString();
         }
-
-
 
         $data = [
             'male' => [
@@ -468,5 +468,17 @@ class InsightController extends Controller
         ];
 
         return $data;
+    }
+
+    public function export(Request $request)
+    {
+        if ($request->start_date_export && $request->end_date_export && $request->filename) {
+            $startDate = $request->start_date_export;
+            $endDate = $request->end_date_export;
+            return Excel::download(new Insight($startDate, $endDate), "$request->filename.xlsx");
+        } else {
+            notify()->error('Gagal Export data, Lengkapi formulir yang kosong');
+            return redirect()->back();
+        }
     }
 }
