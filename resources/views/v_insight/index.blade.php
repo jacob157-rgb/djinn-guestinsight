@@ -1,49 +1,49 @@
 @extends('layouts.app')
 @section('content')
-    <form class="flex items-center py-3 mt-5 space-x-3 bg-white rounded-full ms-10 w-fit pe-3 ps-1" action=""
+    <form class="ms-10 mt-5 flex w-fit items-center space-x-3 rounded-full bg-white py-3 pe-3 ps-1" action=""
         method="post">
         @csrf
-        <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="start_date"
+        <input class="rounded-full bg-white px-3 py-1 drop-shadow-2xl" type="date" name="start_date"
             value="{{ $startDate }}">
         <span>to</span>
-        <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="end_date"
+        <input class="rounded-full bg-white px-3 py-1 drop-shadow-2xl" type="date" name="end_date"
             value="{{ $endDate }}">
-        <a href="/insight" class="flex justify-center px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="reset">
+        <a href="/insight" class="flex justify-center rounded-full bg-white px-3 py-1 drop-shadow-2xl" type="reset">
             <span class="material-symbols-outlined">
                 restart_alt
             </span> Reset
         </a>
         <button
-            class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-red drop-shadow-2xl"
-            type="submit"><span class="text-base font-bold material-symbols-outlined pe-2">
+            class="text-md bg-gradient-red flex justify-center rounded-full px-5 py-1 font-medium text-white drop-shadow-2xl"
+            type="submit"><span class="material-symbols-outlined pe-2 text-base font-bold">
                 filter_alt
             </span> Filter</button>
         <button id="export"
-            class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-green drop-shadow-2xl"
-            type="button"><span class="text-base font-bold material-symbols-outlined pe-2">
+            class="text-md bg-gradient-green flex justify-center rounded-full px-5 py-1 font-medium text-white drop-shadow-2xl"
+            type="button"><span class="material-symbols-outlined pe-2 text-base font-bold">
                 ios_share
             </span> Export</button>
     </form>
 
     <div id="modalExport" style="display: none;"
-        class="flex  flex-col m-auto mt-5 max-w-xl p-8 shadow-sm rounded-xl lg:p-12 bg-gray-50 text-gray-800">
+        class="m-auto mt-5 flex max-w-xl flex-col rounded-xl bg-gray-50 p-8 text-gray-800 shadow-sm lg:p-12">
         <form action="/insight/export" method="post">
             @csrf
-            <div class="flex flex-col w-full">
+            <div class="flex w-full flex-col">
                 <label class="w-1/5" for="name">FileName :</label>
-                <input class="w-4/5 p-2 border border-black rounded-lg" type="text" id="filename" name="filename"
+                <input class="w-4/5 rounded-lg border border-black p-2" type="text" id="filename" name="filename"
                     required value="{{ old('filename') }}"><br>
                 <div class="flex">
-                    <input class="px-3 py-1 bg-white rounded-lg drop-shadow-2xl" type="date" name="start_date_export"
+                    <input class="rounded-lg bg-white px-3 py-1 drop-shadow-2xl" type="date" name="start_date_export"
                         value="">
                     <span
-                        class="px-3 mx-2 py-1 bg-gradient-red text-white font-semibold rounded-lg drop-shadow-2xl">to</span>
-                    <input class="px-3 py-1 bg-white rounded-lg drop-shadow-2xl" type="date" name="end_date_export"
+                        class="bg-gradient-red mx-2 rounded-lg px-3 py-1 font-semibold text-white drop-shadow-2xl">to</span>
+                    <input class="rounded-lg bg-white px-3 py-1 drop-shadow-2xl" type="date" name="end_date_export"
                         value="">
                 </div>
                 <button
-                    class="flex justify-center ml-auto w-40 mt-5 px-5 py-1 font-medium text-white rounded-lg text-md bg-gradient-red drop-shadow-2xl"
-                    type="submit"><span class="text-base font-bold material-symbols-outlined pe-2">
+                    class="text-md bg-gradient-red ml-auto mt-5 flex w-40 justify-center rounded-lg px-5 py-1 font-medium text-white drop-shadow-2xl"
+                    type="submit"><span class="material-symbols-outlined pe-2 text-base font-bold">
                         download
                     </span> Download</button>
             </div>
@@ -51,11 +51,11 @@
     </div>
 
 
-    <div class="w-full px-10 my-8">
-        <div class="w-full p-8 bg-white rounded-xl">
-            <div class="flex mb-2">
+    <div class="my-8 w-full px-10">
+        <div class="w-full rounded-xl bg-white p-8">
+            <div class="mb-2 flex">
                 <div>
-                    <span class=" text-white font-bold p-1 bg-gradient-red rounded-full material-symbols-outlined">
+                    <span class="bg-gradient-red material-symbols-outlined rounded-full p-1 font-bold text-white">
                         filter_alt
                     </span>
                 </div>
@@ -67,37 +67,37 @@
             </div>
             <div class="grid grid-cols-2 gap-3">
                 <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
+                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">public
                         </span> Klasifikasi Daerah</span>
                     <canvas id="cDaerah"></canvas>
                 </div>
                 <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
+                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">wc
                         </span> Klasifikasi Gender</span>
                     <canvas id="cGender"></canvas>
                 </div>
                 <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
+                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">cake
                         </span> Klasifikasi Usia</span>
                     <canvas id="cUsia"></canvas>
                 </div>
                 <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
+                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">school
                         </span> Klasifikasi Pendidikan</span>
                     <canvas id="cEdu"></canvas>
                 </div>
                 <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
+                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">work
                         </span> Klasifikasi Pekerjaan</span>
                     <canvas id="cJob"></canvas>
                 </div>
                 <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
+                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl">
                     <span class="flex items-center text-sm font-medium"><span
                             class="material-symbols-outlined me-2">apartment
                         </span> Klasifikasi Jenis Tamu</span>
@@ -297,8 +297,14 @@
                         {{ $typeGuest['entertainment']['count'] }}
                     ],
                     backgroundColor: [
-                        'rgba(220, 20, 60, 0.8)', 'rgba(65, 105, 225, 0.8)', 'rgba(255, 140, 0, 0.8)',
-                        'rgba(60, 179, 113, 0.8)', 'rgba(128, 0, 128, 0.8)', 'rgba(255, 69, 0, 0.8)'
+
+                        'rgba(220, 20, 60, 0.8)',
+                        'rgba(65, 105, 225, 0.8)',
+                        'rgba(255, 140, 0, 0.8)',
+
+                        'rgba(60, 179, 113, 0.8)',
+                        'rgba(128, 0, 128, 0.8)',
+                        'rgba(255, 69, 0, 0.8)'
                     ]
                 }]
             },
