@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Guest;
@@ -13,7 +14,7 @@ class InsightController extends Controller
     public function index(Request $request)
     {
         $currentHour = Carbon::now()->hour;
-        
+
         if ($currentHour < 12) {
             $greeting = 'Selamat Pagi';
         } else if ($currentHour < 15) {
@@ -23,11 +24,15 @@ class InsightController extends Controller
         } else {
             $greeting = 'Selamat Malam';
         }
-        
+
         $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
         $curr = Carbon::now()->format('g:i A');
 
         $sumAlls = $request->start_date && $request->end_date ? Guest::whereBetween('updated_at', [$request->start_date, $request->end_date])->count() : Guest::count();
+        $startDateTime = new DateTime($request->start_date);
+        $endDateTime = new DateTime($request->end_date);
+        $interval = $startDateTime->diff($endDateTime);
+        $daysDifference = $interval->days + 1;
 
         $data = [
             'title' => 'Insight',
@@ -36,6 +41,7 @@ class InsightController extends Controller
             'today' => $today,
             'startDate' => $request->start_date ?? ' ',
             'endDate' => $request->end_date ?? ' ',
+            'daysDifference' => $daysDifference ?? ' ',
             'sum' => $sumAlls,
             'gender' => $this->getGender($request->start_date, $request->end_date, $sumAlls),
             'region' => $this->getRegion($request->start_date, $request->end_date, $sumAlls),
@@ -45,7 +51,6 @@ class InsightController extends Controller
             'birth_date' => $this->getBirthDate($request->start_date, $request->end_date, $sumAlls),
         ];
 
-        // dd($data);
         return view('v_insight.index', $data);
     }
 

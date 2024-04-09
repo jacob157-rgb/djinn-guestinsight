@@ -13,7 +13,7 @@ class AkumulasiController extends Controller
     public function index(Request $request)
     {
         $currentHour = Carbon::now()->hour;
-        
+
         if ($currentHour < 12) {
             $greeting = 'Selamat Pagi';
         } else if ($currentHour < 15) {
@@ -23,7 +23,7 @@ class AkumulasiController extends Controller
         } else {
             $greeting = 'Selamat Malam';
         }
-        
+
         $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
         $curr = Carbon::now()->format('g:i A');
 

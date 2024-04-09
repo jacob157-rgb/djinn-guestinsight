@@ -26,6 +26,18 @@
     </form>
     <div class="w-full px-10 my-8">
         <div class="w-full p-8 bg-white rounded-xl">
+            <div class="flex mb-2">
+                <div>
+                    <span class=" text-white font-bold p-1 bg-gradient-red rounded-full material-symbols-outlined">
+                        filter_alt
+                    </span>
+                </div>
+                <div class="p-1">
+                    <span>
+                        Data Selama {{ $startDate && $endDate != ' ' ? $daysDifference : '30' }} hari terakhir
+                    </span>
+                </div>
+            </div>
             <div class="grid grid-cols-2 gap-3">
                 <div
                     class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
@@ -278,7 +290,7 @@
     </script>
 
 
-    {{-- 
+    {{--
     <p>total tamu : {{ $sum }}</p>
     <p>Laki laki total : {{ $gender['male']['count'] }} = {{ $gender['male']['persen'] }} % dari keseluruhan data =
         {{ $sum }}</p>
