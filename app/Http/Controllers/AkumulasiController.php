@@ -34,6 +34,7 @@ class AkumulasiController extends Controller
         $interval = $startDateTime->diff($endDateTime);
         $daysDifference = $interval->days;
 
+        
         $data = [
             'title' => 'Akumulasi',
             'greeting' => $greeting,
@@ -55,7 +56,33 @@ class AkumulasiController extends Controller
         return view('v_akumulasi.index', $data);
     }
 
-    public function print(Request $request)
+    public function printNotNull($start_date, $end_date)
+    {
+
+        $sumAlls = $start_date && $end_date ? Guest::whereBetween('updated_at', [$start_date, $end_date])->count() : Guest::count();
+        $startDateTime = new DateTime($start_date);
+        $endDateTime = new DateTime($end_date);
+        $interval = $startDateTime->diff($endDateTime);
+        $daysDifference = $interval->days;
+
+        $data = [
+            'title' => 'Akumulasi',
+            'startDate' => $start_date ?? ' ',
+            'endDate' => $end_date ?? ' ',
+            'daysDifference' => $daysDifference ?? ' ',
+            'sum' => $sumAlls,
+            'gender' => $this->getGender($start_date, $end_date, $sumAlls),
+            'region' => $this->getRegion($start_date, $end_date, $sumAlls),
+            'education' => $this->getEducation($start_date, $end_date, $sumAlls),
+            'typeGuest' => $this->getTypeGuest($start_date, $end_date, $sumAlls),
+            'work' => $this->getWork($start_date, $end_date, $sumAlls),
+            'birth_date' => $this->getBirthDate($start_date, $end_date, $sumAlls),
+        ];
+
+        //dd($data);
+        return view('v_akumulasi.print', $data);
+    }
+    public function printDefalute(Request $request)
     {
         $currentHour = Carbon::now()->hour;
 
@@ -78,6 +105,7 @@ class AkumulasiController extends Controller
         $interval = $startDateTime->diff($endDateTime);
         $daysDifference = $interval->days;
 
+        
         $data = [
             'title' => 'Akumulasi',
             'greeting' => $greeting,

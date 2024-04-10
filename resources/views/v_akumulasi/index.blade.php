@@ -26,11 +26,11 @@
             type="submit"><span class="material-symbols-outlined pe-2 text-base font-bold">
                 filter_alt
             </span> Filter</button>
-        <button id="export"
-            class="text-md bg-gradient-green flex justify-center rounded-full px-5 py-1 font-medium text-white drop-shadow-2xl"
-            type="button"><span class="material-symbols-outlined pe-2 text-base font-bold">
-                ios_share
-            </span> Export</button>
+        <a href="/akumulasi/print/{{ $startDate && $endDate != ' ' ? $startDate . '/' . $endDate : ' ' }}"
+            class="text-md bg-gradient-red flex justify-center rounded-full px-5 py-1 font-medium text-white drop-shadow-2xl"><span
+                class="material-symbols-outlined pe-2">
+                picture_as_pdf
+            </span> Download PDF</a>
     </form>
 
     <div class="my-8 w-full px-10">
@@ -62,55 +62,55 @@
                     <canvas id="cDaerah"></canvas>
                 </div>
 
-                <div
-                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl" id="gender">
+                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                    id="gender">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">wc
                         </span> Akumulasi Gender</span>
-                        <span class="icon-container" onclick="openGender();">
-                            <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
-                        </span>
+                    <span class="icon-container" onclick="openGender();">
+                        <span
+                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                    </span>
                     <canvas id="cGender"></canvas>
                 </div>
-                <div
-                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl" id="usia">
+                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                    id="usia">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">cake
                         </span> Akumulasi Usia</span>
-                        <span class="icon-container" onclick="openUsia();">
-                            <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
-                        </span>
+                    <span class="icon-container" onclick="openUsia();">
+                        <span
+                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                    </span>
                     <canvas id="cUsia"></canvas>
                 </div>
-                <div
-                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl" id="pendidikan">
+                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                    id="pendidikan">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">school
                         </span> Akumulasi Pendidikan</span>
-                        <span class="icon-container" onclick="openPendidikan();">
-                            <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
-                        </span>
+                    <span class="icon-container" onclick="openPendidikan();">
+                        <span
+                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                    </span>
                     <canvas id="cEdu"></canvas>
                 </div>
-                <div
-                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl" id="pekerjaan">
+                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                    id="pekerjaan">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">work
                         </span> Akumulasi Pekerjaan</span>
-                        <span class="icon-container" onclick="openPekerjaan();">
-                            <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
-                        </span>
+                    <span class="icon-container" onclick="openPekerjaan();">
+                        <span
+                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                    </span>
                     <canvas id="cJob"></canvas>
                 </div>
-                <div
-                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl" id="jenis">
+                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                    id="jenis">
                     <span class="flex items-center text-sm font-medium"><span
                             class="material-symbols-outlined me-2">apartment
                         </span> Akumulasi Jenis Tamu</span>
-                        <span class="icon-container" onclick="openJenis();">
-                            <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
-                        </span>
+                    <span class="icon-container" onclick="openJenis();">
+                        <span
+                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                    </span>
                     <canvas id="cType"></canvas>
                 </div>
             </div>
@@ -442,6 +442,7 @@
                 elemDaerah.msRequestFullscreen();
             }
         }
+
         function openPendidikan() {
             if (elemPendidikan.requestFullscreen) {
                 elemPendidikan.requestFullscreen();
@@ -451,6 +452,7 @@
                 elemPendidikan.msRequestFullscreen();
             }
         }
+
         function openPekerjaan() {
             if (elemPekerjaan.requestFullscreen) {
                 elemPekerjaan.requestFullscreen();
@@ -460,6 +462,7 @@
                 elemPekerjaan.msRequestFullscreen();
             }
         }
+
         function openGender() {
             if (elemGender.requestFullscreen) {
                 elemGender.requestFullscreen();
@@ -469,6 +472,7 @@
                 elemGender.msRequestFullscreen();
             }
         }
+
         function openUsia() {
             if (elemUsia.requestFullscreen) {
                 elemUsia.requestFullscreen();
@@ -478,6 +482,7 @@
                 elemUsia.msRequestFullscreen();
             }
         }
+
         function openJenis() {
             if (elemJenis.requestFullscreen) {
                 elemJenis.requestFullscreen();
@@ -487,7 +492,6 @@
                 elemJenis.msRequestFullscreen();
             }
         }
-
     </script>
 
     {{--

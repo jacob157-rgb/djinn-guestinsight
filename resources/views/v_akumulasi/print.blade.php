@@ -82,6 +82,63 @@
                     <canvas id="cDaerah"></canvas>
                 </div>
 
+                <div class="flex h-auto items-start flex-col justify-start bg-white p-4 drop-shadow-2xl mb-5">
+                    <h1 class="font-extrabold">Keterangan :</h1> <br>
+                    <table id="dataTable" class="w-full text-sm text-left text-gray-500 rtl:text-right">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 ">Daerah</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Jumlah</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Persen (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Tegal</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $region['tegal']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $region['tegal']['persen'] }} %
+                                </td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Slawi</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $region['slawi']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $region['slawi']['persen'] }} %
+                                </td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Pemalang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $region['pemalang']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $region['pemalang']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Brebes</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $region['brebes']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $region['brebes']['persen'] }}
+                                    %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Jawa Tengah</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $region['jateng']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $region['jateng']['persen'] }}
+                                    %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Luar Jawa Tengah</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $region['luarJateng']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $region['luarJateng']['persen'] }} %</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
                     id="gender">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">wc
@@ -92,6 +149,35 @@
                     </span>
                     <canvas id="cGender"></canvas>
                 </div>
+                <div class="flex h-auto items-start flex-col justify-start bg-white p-4 drop-shadow-2xl mb-5">
+                    <h1 class="font-extrabold">Keterangan :</h1> <br>
+                    <table id="dataTable" class="w-full text-sm text-left text-gray-500 rtl:text-right">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 ">Gender</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Jumlah</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Persen (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Male</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $gender['male']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $gender['male']['persen'] }} %
+                                </td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Female</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $gender['female']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $gender['female']['persen'] }}
+                                    %</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
                     id="usia">
                     <span class="flex items-center text-sm font-medium"><span
@@ -103,6 +189,57 @@
                     </span>
                     <canvas id="cUsia"></canvas>
                 </div>
+
+                <div class="flex h-auto items-start flex-col justify-start bg-white p-4 drop-shadow-2xl mb-5">
+                    <h1 class="font-extrabold">Keterangan :</h1> <br>
+                    <table id="dataTable" class="w-full text-sm text-left text-gray-500 rtl:text-right">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 ">Usia</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Jumlah</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Persen (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">18_25</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $birth_date['u18_25']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $birth_date['u18_25']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">26_35</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $birth_date['u26_35']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $birth_date['u26_35']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">36_50</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $birth_date['u36_50']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $birth_date['u36_50']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">51_60</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $birth_date['u51_60']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $birth_date['u51_60']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">lansia</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $birth_date['lansia']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $birth_date['lansia']['persen'] }} %</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
                     id="pendidikan">
                     <span class="flex items-center text-sm font-medium"><span
@@ -114,6 +251,57 @@
                     </span>
                     <canvas id="cEdu"></canvas>
                 </div>
+
+                <div class="flex h-auto items-start flex-col justify-start bg-white p-4 drop-shadow-2xl mb-5">
+                    <h1 class="font-extrabold">Keterangan :</h1> <br>
+                    <table id="dataTable" class="w-full text-sm text-left text-gray-500 rtl:text-right">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 ">Pendidikan</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Jumlah</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Persen (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Tidak Sekolah</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $education['ts']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $education['ts']['persen'] }}
+                                    %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">MI/SD</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $education['sd']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $education['sd']['persen'] }}
+                                    %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">MTS/SMP</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $education['smp']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $education['smp']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">SMA/SMK</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $education['sma']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $education['sma']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Perguruan Tinggi</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $education['pt']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $education['pt']['persen'] }}
+                                    %</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
                     id="pekerjaan">
                     <span class="flex items-center text-sm font-medium"><span
@@ -125,6 +313,104 @@
                     </span>
                     <canvas id="cJob"></canvas>
                 </div>
+                <div class="flex h-auto items-start flex-col justify-start bg-white p-4 drop-shadow-2xl mb-5">
+                    <h1 class="font-extrabold">Keterangan :</h1> <br>
+                    <table id="dataTable" class="w-full text-sm text-left text-gray-500 rtl:text-right">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 ">Pekerjaan</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Jumlah</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Persen (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Wiraswasta</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $work['wiraswasta']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $work['wiraswasta']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">PNS</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['pns']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['pns']['persen'] }} %
+                                </td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">TNI/Polri</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['tniPolri']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $work['tniPolri']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Guru</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['guru']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['guru']['persen'] }} %
+                                </td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Pelajar</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['pelajar']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['pelajar']['persen'] }}
+                                    %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Freelancer</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $work['freelancer']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $work['freelancer']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Buruh</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['buruh']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['buruh']['persen'] }} %
+                                </td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Petani</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['petani']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['petani']['persen'] }}
+                                    %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Nelayan</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['nelayan']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['nelayan']['persen'] }}
+                                    %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Pedagang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $work['pedagang']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $work['pedagang']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Pengusaha</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $work['pengusaha']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $work['pengusaha']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Tidak Bekerja</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $work['tidakBekerja']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $work['tidakBekerja']['persen'] }} %</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
                     id="jenis">
                     <span class="flex items-center text-sm font-medium"><span
@@ -135,6 +421,62 @@
                             class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
                     </span>
                     <canvas id="cType"></canvas>
+                </div>
+                <div class="flex h-auto items-start flex-col justify-start bg-white p-4 drop-shadow-2xl mb-5">
+                    <h1 class="font-extrabold">Keterangan :</h1> <br>
+                    <table id="dataTable" class="w-full text-sm text-left text-gray-500 rtl:text-right">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 ">Jenis Tamu</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Jumlah</th>
+                                <th scope="col" class="px-6 py-3 font-medium">Persen (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Web</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">{{ $typeGuest['web']['count'] }}
+                                    Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['web']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Work</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['work']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['work']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Owner</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['owner']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['owner']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Travel</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['travel']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['travel']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Coorporate</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['coorporate']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['coorporate']['persen'] }} %</td>
+                            </tr>
+                            <tr class="border-b odd:bg-white even:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Entertainment</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['entertainment']['count'] }} Orang</td>
+                                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                    {{ $typeGuest['entertainment']['persen'] }} %</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -519,8 +861,5 @@
         window.print()
     </script>
 
-
-
 </body>
-
 </html>
