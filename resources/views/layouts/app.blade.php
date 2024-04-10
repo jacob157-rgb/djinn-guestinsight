@@ -23,39 +23,48 @@
 </head>
 
 <body>
-    <div class="flex w-screen h-screen bg-gray-200">
-        <aside class="sticky flex flex-col items-center justify-between w-1/4 h-screen bg-white pt-14">
-            <div class="flex flex-col items-center justify-start">
-                <img class="w-2/5 h-auto" src="{{ asset('assets/image/logo.png') }}" alt="logo image">
-                <h1 class="mt-5 text-4xl font-medium text-primary">DJ INN</h1>
-                <ul class="flex flex-col self-start mt-10 space-y-2">
-                    <li class="{{ request()->is('beranda') ? 'border-primary' : 'border-transparent' }} border-s-4">
+    <div class="flex flex-col-reverse w-screen h-screen bg-gray-200 md:flex-row">
+        <aside class="sticky flex flex-col bg-white md:items-center md:justify-between md:h-screen md:w-1/4 md:pt-14">
+            <div class="flex flex-col md:items-center md:justify-start">
+                <img class="hidden w-2/5 h-auto md:block" src="{{ asset('assets/image/logo.png') }}" alt="logo image">
+                <h1 class="hidden mt-5 text-4xl font-medium md:block text-primary">DJ INN</h1>
+                <ul class="flex flex-row self-stretch justify-between md:self-start md:items-start md:justify-center md:py-0 md:mt-10 md:flex-col">
+                    <li class="{{ request()->is('beranda') ? 'border-primary' : 'border-transparent' }} border-b-4 md:border-l-4 md:border-y-0">
                         <a class="{{ request()->is('beranda') ? 'text-primary font-semibold' : 'text-gry font-medium' }} flex items-center text-xl"
-                            href="/beranda"><span class="px-5 text-4xl font-medium material-symbols-outlined">
+                            href="/beranda"><span class="px-5 py-3 text-3xl font-medium md:text-4xl material-symbols-outlined">
                                 home
-                            </span> Beranda</a>
+                            </span> <span class="hidden md:block"> Beranda</span></a>
                     </li>
-                    <li class="{{ request()->is('form') ? 'border-primary' : 'border-transparent' }} border-s-4">
+                    <li class="{{ request()->is('form') ? 'border-primary' : 'border-transparent' }} border-b-4 md:border-l-4 md:border-y-0">
                         <a class="{{ request()->is('form') ? 'text-primary font-semibold' : 'text-gry font-medium' }} flex items-center text-xl"
-                            href="/form"><span class="px-5 text-4xl font-medium material-symbols-outlined">
+                            href="/form"><span class="px-5 py-3 text-3xl font-medium md:text-4xl material-symbols-outlined">
                                 assignment_add
-                            </span> Formulir</a>
+                            </span> <span class="hidden md:block"> Formulir</span></a>
                     </li>
-                    <li class="{{ request()->is('insight') ? 'border-primary' : 'border-transparent' }} border-s-4">
+                    <li class="{{ request()->is('insight') ? 'border-primary' : 'border-transparent' }} border-b-4 md:border-l-4 md:border-y-0">
                         <a class="{{ request()->is('insight') ? 'text-primary font-semibold' : 'text-gry font-medium' }} flex items-center text-xl"
-                            href="/insight"><span class="px-5 text-4xl font-medium material-symbols-outlined">
+                            href="/insight"><span class="px-5 py-3 text-3xl font-medium md:text-4xl material-symbols-outlined">
                                 bar_chart
-                            </span> Insight</a>
+                            </span> <span class="hidden md:block"> Insight</span></a>
                     </li>
-                    <li class="{{ request()->is('akumulasi') ? 'border-primary' : 'border-transparent' }} border-s-4">
+                    <li class="{{ request()->is('akumulasi') ? 'border-primary' : 'border-transparent' }} border-b-4 md:border-l-4 md:border-y-0">
                         <a class="{{ request()->is('akumulasi') ? 'text-primary font-semibold' : 'text-gry font-medium' }} flex items-center text-xl"
-                            href="/akumulasi"><span class="px-5 text-4xl font-medium material-symbols-outlined">
+                            href="/akumulasi"><span class="px-5 py-3 text-3xl font-medium md:text-4xl material-symbols-outlined">
                                 person
-                            </span> Akumulasi</a>
+                            </span> <span class="hidden md:block"> Akumulasi</span></a>
+                    </li>
+                    <li class="block md:hidden">
+                        <form action="/logout" method="post">
+                            @csrf
+                            @method("DELETE")
+                            <button type="submit" class="flex items-center text-xl border-b-4 border-transparent text-gry"><span
+                                class="px-5 py-3 text-3xl material-symbols-outlined">
+                                logout</button>
+                        </form>
                     </li>
                 </ul>
             </div>
-            <form action="/logout" method="post">
+            <form class="hidden md:block" action="/logout" method="post">
                 @csrf
                 @method("DELETE")
                 <button type="submit" class="flex items-center pb-3 text-xl text-gry"><span
@@ -64,7 +73,7 @@
                 </span> Logout</button>
             </form>
         </aside>
-        <div class="w-3/4 h-screen overflow-y-auto bg-gray-200">
+        <div class="w-full h-screen overflow-y-auto bg-gray-200 md:w-3/4">
             <x-notify::notify />
             <div class="flex flex-col justify-between px-10 mt-8 md:flex-row">
                 <div class="flex flex-col">
