@@ -2,10 +2,11 @@
 
 namespace App\Exports;
 
+use Carbon\Carbon;
 use App\Models\Guest;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
 class Insight implements FromCollection, WithHeadings
 {
@@ -23,14 +24,10 @@ class Insight implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $data = Guest::select('ID_identity', 'name', 'address', 'region', 'birth_date', 'work', 'education', 'gender', 'type_guest', 'updated_at')
+        $data = Guest::selectRaw('ID_identity, name, address, region, birth_date, work, education, gender, type_guest, DATE_FORMAT(updated_at, "%Y-%m-%d"), DATE_FORMAT(updated_at, "%H:%i:%s")')
             ->whereDate('updated_at', '>=', $this->startDate)
             ->whereDate('updated_at', '<=', $this->endDate)
             ->get();
-
-        foreach ($data as $item) {
-            $item->tanggal_data = $item->updated_at->format('Y-m-d');
-        }
 
         return $data;
     }
@@ -40,6 +37,6 @@ class Insight implements FromCollection, WithHeadings
      */
     public function headings(): array
     {
-        return ['ID Identity', 'Name', 'Address', 'Region', 'Birth Date', 'Work', 'Education', 'Gender', 'Type Guest', 'Tanggal Data'];
+        return ['ID Identity', 'Nama', 'Alamat', 'Wilayah', 'Tanggal Lahir', 'Pekerjaan', 'Pendidikan', 'Gender', 'Jenis Tamu', 'Tanggal Masuk', 'Jam Masuk'];
     }
 }

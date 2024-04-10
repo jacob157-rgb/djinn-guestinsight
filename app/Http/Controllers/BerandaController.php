@@ -28,9 +28,9 @@ class BerandaController extends Controller
         $curr = Carbon::now()->format('g:i A');
 
         if ($request->start_date && $request->end_date) {
-            $date_filter = Guest::whereBetween(DB::raw('DATE(updated_at)'), [$request->start_date, $request->end_date])->paginate(20);
+            $date_filter = Guest::whereBetween(DB::raw('DATE(updated_at)'), [$request->start_date, $request->end_date])->paginate(50);
         } else {
-            $date_filter = Guest::orderBy('id', 'asc')->paginate(10);
+            $date_filter = Guest::orderBy('id', 'asc')->paginate(50);
         }
 
         $data = [
@@ -58,7 +58,7 @@ class BerandaController extends Controller
         return view('v_beranda.index', $data);
     }
 
-    public function index1()
+    public function klasifikasi()
     {
         $sumAlls = Guest::count();
 
