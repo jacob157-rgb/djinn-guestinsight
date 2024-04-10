@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.icon-container {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    padding: 2px;
+}

@@ -1,58 +1,59 @@
-@extends('layouts.app')
-@section('content')
-    <form class="flex items-center py-3 mt-5 space-x-3 bg-white rounded-full ms-10 w-fit pe-3 ps-1" action=""
-        method="post">
-        @csrf
-        <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="start_date"
-            value="{{ $startDate }}">
-        <span>to</span>
-        <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="end_date"
-            value="{{ $endDate }}">
-        <a href="/insight" class="flex justify-center px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="reset">
-            <span class="material-symbols-outlined">
-                restart_alt
-            </span> Reset
-        </a>
-        <button
-            class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-red drop-shadow-2xl"
-            type="submit"><span class="text-base font-bold material-symbols-outlined pe-2">
-                filter_alt
-            </span> Filter</button>
-        <button id="export"
-            class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-green drop-shadow-2xl"
-            type="button"><span class="text-base font-bold material-symbols-outlined pe-2">
-                ios_share
-            </span> Export</button>
-    </form>
+<!DOCTYPE html>
+<html lang="en">
 
-    <div id="modalExport" style="display: none;"
-        class="flex flex-col max-w-xl p-8 m-auto mt-5 text-gray-800 shadow-sm rounded-xl bg-gray-50 lg:p-12">
-        <form action="/insight/export" method="post">
-            @csrf
-            <div class="flex flex-col w-full">
-                <label class="w-1/5" for="name">FileName :</label>
-                <input class="w-4/5 p-2 border border-black rounded-lg" type="text" id="filename" name="filename"
-                    required value="{{ old('filename') }}"><br>
-                <div class="flex">
-                    <input class="px-3 py-1 bg-white rounded-lg drop-shadow-2xl" type="date" name="start_date_export"
-                        value="">
-                    <span
-                        class="px-3 py-1 mx-2 font-semibold text-white rounded-lg bg-gradient-red drop-shadow-2xl">to</span>
-                    <input class="px-3 py-1 bg-white rounded-lg drop-shadow-2xl" type="date" name="end_date_export"
-                        value="">
-                </div>
-                <button
-                    class="flex justify-center w-40 px-5 py-1 mt-5 ml-auto font-medium text-white rounded-lg text-md bg-gradient-red drop-shadow-2xl"
-                    type="submit"><span class="text-base font-bold material-symbols-outlined pe-2">
-                        download
-                    </span> Download</button>
-            </div>
-        </form>
-    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
+    @notifyCss
+
+    {{-- CSS --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 
-    <div class="w-full px-10 my-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        .icon-container {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            padding: 2px;
+        }
+
+        @media print {
+            @page {
+                margin: 0;
+                size: landscape;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            .back {
+                display: none;
+            }
+        }
+    </style>
+
+
+    <div class="w-full px-1 ">
         <div class="w-full p-8 bg-white rounded-xl">
+            <a href="/akumulasi"
+                class="flex justify-center w-24 px-5 py-1 m-5 font-medium text-white rounded-full back text-md bg-gradient-red drop-shadow-2xl">Kembali</a>
             <div class="flex mb-2">
                 <div>
                     <span class="p-1 font-bold text-white rounded-full bg-gradient-red material-symbols-outlined">
@@ -61,69 +62,77 @@
                 </div>
                 <div class="p-1">
                     <span>
-                        Data Selama {{ $startDate && $endDate != ' ' ? $daysDifference : '30' }} hari terakhir
+                        Akummulasi Data Selama {{ $startDate && $endDate != ' ' ? $daysDifference : '30' }} hari
+                        terakhir
                     </span>
                 </div>
             </div>
-            <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-                <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
-                    <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">public
-                        </span> Klasifikasi Daerah</span>
-                    <span class="icon-container" onclick="openDaerah();">
-                        <span
-                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
-                    </span>
+            <div class="grid">
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 mb-5 bg-white rounded-lg drop-shadow-2xl"
+                    id="daerah">
+                    <div class="flex items-center justify-between text-sm font-medium">
+                        <span class="flex items-center">
+                            <span class="material-symbols-outlined me-2">public</span> Akumulasi Daerah
+                        </span>
+                        <span class="icon-container" onclick="openDaerah();">
+                            <span
+                                class="text-lg text-gray-600 material-symbols-outlined hover:text-black cursor-copy hover:text-xl">center_focus_strong</span>
+                        </span>
+                    </div>
                     <canvas id="cDaerah"></canvas>
                 </div>
-                <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
+
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 mb-5 bg-white rounded-lg drop-shadow-2xl"
+                    id="gender">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">wc
-                        </span> Klasifikasi Gender</span>
+                        </span> Akumulasi Gender</span>
                     <span class="icon-container" onclick="openGender();">
                         <span
-                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
+                            class="text-lg text-gray-600 material-symbols-outlined hover:text-black cursor-copy hover:text-xl">center_focus_strong</span>
                     </span>
                     <canvas id="cGender"></canvas>
                 </div>
-                <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
-                    <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">cake
-                        </span> Klasifikasi Usia</span>
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 mb-5 bg-white rounded-lg drop-shadow-2xl"
+                    id="usia">
+                    <span class="flex items-center text-sm font-medium"><span
+                            class="material-symbols-outlined me-2">cake
+                        </span> Akumulasi Usia</span>
                     <span class="icon-container" onclick="openUsia();">
                         <span
-                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
+                            class="text-lg text-gray-600 material-symbols-outlined hover:text-black cursor-copy hover:text-xl">center_focus_strong</span>
                     </span>
                     <canvas id="cUsia"></canvas>
                 </div>
-                <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
-                    <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">school
-                        </span> Klasifikasi Pendidikan</span>
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 mb-5 bg-white rounded-lg drop-shadow-2xl"
+                    id="pendidikan">
+                    <span class="flex items-center text-sm font-medium"><span
+                            class="material-symbols-outlined me-2">school
+                        </span> Akumulasi Pendidikan</span>
                     <span class="icon-container" onclick="openPendidikan();">
                         <span
-                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
+                            class="text-lg text-gray-600 material-symbols-outlined hover:text-black cursor-copy hover:text-xl">center_focus_strong</span>
                     </span>
                     <canvas id="cEdu"></canvas>
                 </div>
-                <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
-                    <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">work
-                        </span> Klasifikasi Pekerjaan</span>
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 mb-5 bg-white rounded-lg drop-shadow-2xl"
+                    id="pekerjaan">
+                    <span class="flex items-center text-sm font-medium"><span
+                            class="material-symbols-outlined me-2">work
+                        </span> Akumulasi Pekerjaan</span>
                     <span class="icon-container" onclick="openPekerjaan();">
                         <span
-                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
+                            class="text-lg text-gray-600 material-symbols-outlined hover:text-black cursor-copy hover:text-xl">center_focus_strong</span>
                     </span>
                     <canvas id="cJob"></canvas>
                 </div>
-                <div
-                    class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 mb-5 bg-white rounded-lg drop-shadow-2xl"
+                    id="jenis">
                     <span class="flex items-center text-sm font-medium"><span
                             class="material-symbols-outlined me-2">apartment
-                        </span> Klasifikasi Jenis Tamu</span>
+                        </span> Akumulasi Jenis Tamu</span>
                     <span class="icon-container" onclick="openJenis();">
                         <span
-                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
+                            class="text-lg text-gray-600 material-symbols-outlined hover:text-black cursor-copy hover:text-xl">center_focus_strong</span>
                     </span>
                     <canvas id="cType"></canvas>
                 </div>
@@ -346,11 +355,6 @@
             }
         });
 
-        $(document).ready(function() {
-            $("#export").click(function() {
-                $("#modalExport").toggle();
-            });
-        });
 
         var elemDaerah = document.getElementById("daerah");
         var elemPendidikan = document.getElementById("pendidikan");
@@ -418,80 +422,12 @@
                 elemJenis.msRequestFullscreen();
             }
         }
+
+        window.print()
     </script>
 
 
-    {{--
-    <p>total tamu : {{ $sum }}</p>
-    <p>Laki laki total : {{ $gender['male']['count'] }} = {{ $gender['male']['persen'] }} % dari keseluruhan data =
-        {{ $sum }}</p>
-    <p>Perempuan total : {{ $gender['female']['count'] }} = {{ $gender['female']['persen'] }} % dari keseluruhan data =
-        {{ $sum }}</p>
-    <p>None total : {{ $gender['none']['count'] }} = {{ $gender['none']['persen'] }} % dari keseluruhan data
-        = {{ $sum }}</p>
 
-    <div style="display: flex; margin: 5px">
-        <table border="2">
-            <tr>
-                <th>Name</th>
-                <th>Gender</th>
-            </tr>
-            @foreach ($gender['male']['datas'] as $row)
-                <tr>
-                    <td>{{ $row->name }}</td>
-                    <td>{{ $row->gender }}</td>
-                </tr>
-            @endforeach
-            <tr>
-                <th>Jumlah</th>
-                <td>{{ $gender['male']['count'] }}</td>
-            </tr>
-            <tr>
-                <th>persentasi</th>
-                <td>{{ $gender['male']['persen'] }} %</td>
-            </tr>
-        </table>
-        <br>
-        <table border="2" style="margin-left: 5px; margin-right: 5px">
-            <tr>
-                <th>Name</th>
-                <th>Gender</th>
-            </tr>
-            @foreach ($gender['female']['datas'] as $row)
-                <tr>
-                    <td>{{ $row->name }}</td>
-                    <td>{{ $row->gender }}</td>
-                </tr>
-            @endforeach
-            <tr>
-                <th>Jumlah</th>
-                <td>{{ $gender['female']['count'] }}</td>
-            </tr>
-            <tr>
-                <th>persentasi</th>
-                <td>{{ $gender['female']['persen'] }} %</td>
-            </tr>
-        </table>
-        <br>
-        <table border="2">
-            <tr>
-                <th>Name</th>
-                <th>Gender</th>
-            </tr>
-            @foreach ($gender['none']['datas'] as $row)
-                <tr>
-                    <td>{{ $row->name }}</td>
-                    <td>{{ $row->gender }}</td>
-                </tr>
-            @endforeach
-            <tr>
-                <th>Jumlah</th>
-                <td>{{ $gender['none']['count'] }}</td>
-            </tr>
-            <tr>
-                <th>persentasi</th>
-                <td>{{ $gender['none']['persen'] }} %</td>
-            </tr>
-        </table>
-    </div> --}}
-@endsection
+</body>
+
+</html>
