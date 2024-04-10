@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
-    <div class="w-full px-10 my-8">
+    <div class="w-full px-5 my-8 md:px-10">
         <div class="flex flex-col items-center justify-center w-full p-8 bg-white rounded-xl">
             <span class="text-2xl">Isi Data Tamu</span>
-            <form class="flex flex-col w-full space-y-3" action="{{ url('form') }}" method="POST">
+            <form class="flex flex-col w-full space-x-1 md:space-y-3" action="{{ url('form') }}" method="POST">
                 @csrf
-                <div class="flex" class="flex">
-                    <label class="w-1/5" for="ID_identity">No Identitas :</label>
-                    <input class="w-4/5 p-2 border border-black rounded-lg" type="text" id="ID_identity"
+                <div class="flex flex-col md:flex-row" class="flex">
+                    <label class="w-full md:w-1/5" for="ID_identity">No Identitas :</label>
+                    <input class="w-full p-2 border border-black rounded-lg md:w-4/5" type="text" id="ID_identity"
                         name="ID_identity" required value="{{ old('ID_identity') }}"><br>
                 </div>
                 <span class="ml-40">
@@ -15,9 +15,9 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </span>
-                <div class="flex">
-                    <label class="w-1/5" for="name">Nama :</label>
-                    <input class="w-4/5 p-2 border border-black rounded-lg" type="text" id="name" name="name"
+                <div class="flex flex-col md:flex-row">
+                    <label class="w-full md:w-1/5" for="name">Nama :</label>
+                    <input class="w-full p-2 border border-black rounded-lg md:w-4/5" type="text" id="name" name="name"
                         required value="{{ old('name') }}"><br>
                 </div>
                 <span class="ml-40">
@@ -25,9 +25,9 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </span>
-                <div class="flex">
-                    <label class="w-1/5" for="address">Alamat :</label>
-                    <input class="w-4/5 p-2 border border-black rounded-lg" type="text" id="address" name="address"
+                <div class="flex flex-col md:flex-row">
+                    <label class="w-full md:w-1/5" for="address">Alamat :</label>
+                    <input class="w-full p-2 border border-black rounded-lg md:w-4/5" type="text" id="address" name="address"
                         required value="{{ old('address') }}"><br>
                 </div>
                 <span class="ml-40">
@@ -35,9 +35,9 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </span>
-                <div class="flex">
-                    <label class="w-1/5" for="region">Kota :</label>
-                    <select class="w-4/5 p-2 border border-black rounded-lg" id="region" name="region" required
+                <div class="flex flex-col md:flex-row">
+                    <label class="w-full md:w-1/5" for="region">Kota :</label>
+                    <select class="w-full p-2 border border-black rounded-lg md:w-4/5" id="region" name="region" required
                         value="{{ old('region') }}">
                         <option selected>-- Pilih Kota --</option>
                         <option value="TEGAL">TEGAL</option>
@@ -53,9 +53,9 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </span>
-                <div class="flex">
-                    <label class="w-1/5" for="birth_date">Tanggal Lahir :</label>
-                    <input class="w-4/5 p-2 border border-black rounded-lg pe-0" type="date" id="birth_date"
+                <div class="flex flex-col md:flex-row">
+                    <label class="w-full md:w-1/5" for="birth_date">Tanggal Lahir :</label>
+                    <input class="w-full p-2 border border-black rounded-lg md:w-4/5 pe-0" type="date" id="birth_date"
                         name="birth_date" required value="{{ old('birth_date') }}"><br>
                 </div>
                 <span class="ml-40">
@@ -63,9 +63,9 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </span>
-                <div class="flex">
-                    <label class="w-1/5" for="work">Pekerjaan :</label>
-                    <select class="w-4/5 p-2 border border-black rounded-lg" id="work" name="work" required
+                <div class="flex flex-col md:flex-row">
+                    <label class="w-full md:w-1/5" for="work">Pekerjaan :</label>
+                    <select class="w-full p-2 border border-black rounded-lg md:w-4/5" id="work" name="work" required
                         value="{{ old('work') }}">
                         <option selected>-- Pilih Pekerjaan --</option>
                         <option value="WIRASWASTA">WIRASWASTA</option>
@@ -87,9 +87,9 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </span>
-                <div class="flex">
-                    <label class="w-1/5" for="education">Pendidikan :</label>
-                    <select class="w-4/5 p-2 border border-black rounded-lg" id="education" name="education" required
+                <div class="flex flex-col md:flex-row">
+                    <label class="w-full md:w-1/5" for="education">Pendidikan :</label>
+                    <select class="w-full p-2 border border-black rounded-lg md:w-4/5" id="education" name="education" required
                         value="{{ old('education') }}">
                         <option selected>-- Pilih Pendidikan --</option>
                         <option value="TS">TIDAK SEKOLAH</option>
@@ -104,9 +104,9 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </span>
-                <div class="flex">
-                    <label class="w-1/5" for="gender">Gender :</label>
-                    <select class="w-4/5 p-2 border border-black rounded-lg" id="gender" name="gender" required
+                <div class="flex flex-col md:flex-row">
+                    <label class="w-full md:w-1/5" for="gender">Gender :</label>
+                    <select class="w-full p-2 border border-black rounded-lg md:w-4/5" id="gender" name="gender" required
                         value="{{ old('gender') }}">
                         <option selected>-- Pilih Gender --</option>
                         <option value="L">LAKI-LAKI</option>
@@ -119,9 +119,9 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </span>
-                <div class="flex">
-                    <label class="w-1/5" for="type_guest">Jenis Tamu :</label>
-                    <select class="w-4/5 p-2 border border-black rounded-lg" id="type_guest" name="type_guest" required
+                <div class="flex flex-col md:flex-row">
+                    <label class="w-full md:w-1/5" for="type_guest">Jenis Tamu :</label>
+                    <select class="w-full p-2 border border-black rounded-lg md:w-4/5" id="type_guest" name="type_guest" required
                         value="{{ old('type_guest') }}">
                         <option selected>-- Pilih Jenis Tamu --</option>
                         <option value="WEB">WEB</option>
@@ -138,7 +138,7 @@
                     @enderror
                 </span>
                 <div class="flex self-end justify-end w-full">
-                    <button class="flex justify-center w-4/5 py-2 text-white rounded-lg bg-gradient-red"
+                    <button class="flex justify-center w-full py-2 text-white rounded-lg md:w-4/5 bg-gradient-red"
                         type="submit">Tambah <span class="material-symbols-outlined">
                             add_circle
                         </span></button>

@@ -10,7 +10,6 @@ module.exports = {
       sans: ["Poppins", "sans-serif"],
     },
     extend: {
-
       colors: {
         primary: '#E52228',
         gry: '#686868'

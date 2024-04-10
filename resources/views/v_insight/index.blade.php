@@ -1,29 +1,64 @@
 @extends('layouts.app')
 @section('content')
-    <form class="flex items-center py-3 mt-5 space-x-3 bg-white rounded-full ms-10 w-fit pe-3 ps-1" action=""
-        method="post">
-        @csrf
-        <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="start_date"
-            value="{{ $startDate }}">
-        <span>to</span>
-        <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="end_date"
-            value="{{ $endDate }}">
-        <a href="/insight" class="flex justify-center px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="reset">
-            <span class="material-symbols-outlined">
-                restart_alt
-            </span> Reset
-        </a>
-        <button
-            class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-red drop-shadow-2xl"
-            type="submit"><span class="text-base font-bold material-symbols-outlined pe-2">
-                filter_alt
-            </span> Filter</button>
-        <button id="export"
-            class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-green drop-shadow-2xl"
-            type="button"><span class="text-base font-bold material-symbols-outlined pe-2">
-                ios_share
-            </span> Export</button>
-    </form>
+    <div class="block px-5 md:hidden">
+        <form class="flex flex-col px-3 py-5 mt-5 space-x-2 space-y-2 bg-white rounded-xl" action="" method="post">
+            @csrf
+            <input class="px-3 py-2 bg-white rounded-full shadow-md" type="date" name="start_date"
+                value="{{ $startDate }}">
+            <span class="text-center">to</span>
+            <input class="px-3 py-2 bg-white rounded-full shadow-md" type="date" name="end_date"
+                value="{{ $endDate }}">
+            <div class="flex flex-row items-center justify-between space-x-2">
+                <button
+                    class="justify-center flex-1 px-5 py-2 font-medium text-white rounded-full shadow-md text-md bg-gradient-red"
+                    type="submit">
+                    <span class="text-base font-bold material-symbols-outlined">
+                        filter_alt
+                    </span> Filter
+                </button>
+                <button id="export"
+                    class="justify-center flex-1 px-5 py-2 font-medium text-white rounded-full shadow-md text-md bg-gradient-green"
+                    type="button">
+                    <span class="text-base font-bold material-symbols-outlined">
+                        ios_share
+                    </span> Export
+                </button>
+            </div>
+            <a href="/insight"
+                class="flex justify-center px-5 py-2 font-medium text-white rounded-full shadow-md bg-gradient-blue"
+                type="reset">
+                <span class="text-base font-bold material-symbols-outlined">
+                    restart_alt
+                </span> Reset
+            </a>
+        </form>
+    </div>
+    <div class="hidden md:block">
+        <form class="flex items-center py-3 mt-5 space-x-3 bg-white rounded-full ms-10 w-fit pe-3 ps-1" action=""
+            method="post">
+            @csrf
+            <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="start_date"
+                value="{{ $startDate }}">
+            <span>to</span>
+            <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="end_date"
+                value="{{ $endDate }}">
+            <a href="/insight" class="flex justify-center px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="reset">
+                <span class="material-symbols-outlined">
+                    restart_alt
+                </span> Reset
+            </a>
+            <button
+                class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-red drop-shadow-2xl"
+                type="submit"><span class="text-base font-bold material-symbols-outlined pe-2">
+                    filter_alt
+                </span> Filter</button>
+            <button id="export"
+                class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-green drop-shadow-2xl"
+                type="button"><span class="text-base font-bold material-symbols-outlined pe-2">
+                    ios_share
+                </span> Export</button>
+        </form>
+    </div>
 
     <div id="modalExport" style="display: none;"
         class="flex flex-col max-w-xl p-8 m-auto mt-5 text-gray-800 shadow-sm rounded-xl bg-gray-50 lg:p-12">
@@ -51,7 +86,7 @@
     </div>
 
 
-    <div class="w-full px-10 my-8">
+    <div class="w-full px-5 my-8 md:px-10">
         <div class="w-full p-8 bg-white rounded-xl">
             <div class="flex mb-2">
                 <div>
@@ -98,7 +133,8 @@
                 </div>
                 <div
                     class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl">
-                    <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">school
+                    <span class="flex items-center text-sm font-medium"><span
+                            class="material-symbols-outlined me-2">school
                         </span> Klasifikasi Pendidikan</span>
                     <span class="icon-container" onclick="openPendidikan();">
                         <span

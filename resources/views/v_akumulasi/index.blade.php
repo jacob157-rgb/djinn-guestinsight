@@ -1,54 +1,82 @@
 @extends('layouts.app')
 @section('content')
-    <style>
-        .icon-container {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            padding: 2px;
-        }
-    </style>
-    <form class="ms-10 mt-5 flex w-fit items-center space-x-3 rounded-full bg-white py-3 pe-3 ps-1" action=""
-        method="post">
-        @csrf
-        <input class="rounded-full bg-white px-3 py-1 drop-shadow-2xl" type="date" name="start_date"
-            value="{{ $startDate }}">
-        <span>to</span>
-        <input class="rounded-full bg-white px-3 py-1 drop-shadow-2xl" type="date" name="end_date"
-            value="{{ $endDate }}">
-        <a href="/akumulasi" class="flex justify-center rounded-full bg-white px-3 py-1 drop-shadow-2xl" type="reset">
-            <span class="material-symbols-outlined">
-                restart_alt
-            </span> Reset
-        </a>
-        <button
-            class="text-md bg-gradient-red flex justify-center rounded-full px-5 py-1 font-medium text-white drop-shadow-2xl"
-            type="submit"><span class="material-symbols-outlined pe-2 text-base font-bold">
-                filter_alt
-            </span> Filter</button>
-        <a href="/akumulasi/print/{{ $startDate && $endDate != ' ' ? $startDate . '/' . $endDate : ' ' }}"
-            class="text-md bg-gradient-red flex justify-center rounded-full px-5 py-1 font-medium text-white drop-shadow-2xl"><span
-                class="material-symbols-outlined pe-2">
-                picture_as_pdf
-            </span> Download PDF</a>
-    </form>
+    <div class="block px-2 md:hidden">
+        <form class="flex flex-col items-center px-3 py-3 mx-3 mt-5 space-y-2 bg-white rounded-xl" action=""
+            method="post">
+            @csrf
+            <input class="w-full px-3 py-2 bg-white rounded-full shadow-md" type="date" name="start_date"
+                value="{{ $startDate }}">
+            <span>to</span>
+            <input class="w-full px-3 py-2 bg-white rounded-full shadow-md" type="date" name="end_date"
+                value="{{ $endDate }}">
+            <div class="flex flex-col w-full space-y-3">
+                <a href="/akumulasi"
+                    class="flex justify-center w-full py-2 font-medium text-white rounded-full shadow-md bg-gradient-blue"
+                    type="reset">
+                    <span class="material-symbols-outlined">
+                        restart_alt
+                    </span> Reset
+                </a>
+                <button
+                    class="flex justify-center w-full py-2 font-medium text-white rounded-full shadow-md bg-gradient-red"
+                    type="submit">
+                    <span class="text-base font-bold material-symbols-outlined">
+                        filter_alt
+                    </span> Filter
+                </button>
+                <a href="/akumulasi/print/{{ $startDate && $endDate != ' ' ? $startDate . '/' . $endDate : ' ' }}"
+                    class="flex justify-center w-full py-2 font-medium text-white rounded-full shadow-md bg-gradient-red">
+                    <span class="material-symbols-outlined">
+                        picture_as_pdf
+                    </span> Download PDF
+                </a>
+            </div>
+        </form>
+    </div>
+    <div class="hidden md:block">
+        <form class="flex items-center py-3 mt-5 space-x-3 bg-white rounded-full ms-10 w-fit pe-3 ps-1" action=""
+            method="post">
+            @csrf
+            <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="start_date"
+                value="{{ $startDate }}">
+            <span>to</span>
+            <input class="px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="date" name="end_date"
+                value="{{ $endDate }}">
+            <a href="/akumulasi" class="flex justify-center px-3 py-1 bg-white rounded-full drop-shadow-2xl" type="reset">
+                <span class="material-symbols-outlined">
+                    restart_alt
+                </span> Reset
+            </a>
+            <button
+                class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-red drop-shadow-2xl"
+                type="submit"><span class="text-base font-bold material-symbols-outlined pe-2">
+                    filter_alt
+                </span> Filter</button>
+            <a href="/akumulasi/print/{{ $startDate && $endDate != ' ' ? $startDate . '/' . $endDate : ' ' }}"
+                class="flex justify-center px-5 py-1 font-medium text-white rounded-full text-md bg-gradient-red drop-shadow-2xl"><span
+                    class="material-symbols-outlined pe-2">
+                    picture_as_pdf
+                </span> Download PDF</a>
+        </form>
+    </div>
 
-    <div class="my-8 w-full px-10">
-        <div class="w-full rounded-xl bg-white p-8">
-            <div class="mb-2 flex">
+    <div class="w-full px-5 my-8 md:px-10">
+        <div class="w-full p-8 bg-white rounded-xl">
+            <div class="flex mb-2">
                 <div>
-                    <span class="bg-gradient-red material-symbols-outlined rounded-full p-1 font-bold text-white">
+                    <span class="p-1 font-bold text-white rounded-full bg-gradient-red material-symbols-outlined">
                         filter_alt
                     </span>
                 </div>
                 <div class="p-1">
                     <span>
-                        Akummulasi Data Selama {{ $startDate && $endDate != ' ' ? $daysDifference : '30' }} hari terakhir
+                        Akumulasi Data Selama {{ $startDate && $endDate != ' ' ? $daysDifference : '30' }} hari
+                        terakhir
                     </span>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+            <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl"
                     id="daerah">
                     <div class="flex items-center justify-between text-sm font-medium">
                         <span class="flex items-center">
@@ -56,60 +84,60 @@
                         </span>
                         <span class="icon-container" onclick="openDaerah();">
                             <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                                class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
                         </span>
                     </div>
                     <canvas id="cDaerah"></canvas>
                 </div>
 
-                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl"
                     id="gender">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">wc
                         </span> Akumulasi Gender</span>
                     <span class="icon-container" onclick="openGender();">
                         <span
-                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
                     </span>
                     <canvas id="cGender"></canvas>
                 </div>
-                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl"
                     id="usia">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">cake
                         </span> Akumulasi Usia</span>
                     <span class="icon-container" onclick="openUsia();">
                         <span
-                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
                     </span>
                     <canvas id="cUsia"></canvas>
                 </div>
-                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl"
                     id="pendidikan">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">school
                         </span> Akumulasi Pendidikan</span>
                     <span class="icon-container" onclick="openPendidikan();">
                         <span
-                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
                     </span>
                     <canvas id="cEdu"></canvas>
                 </div>
-                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl"
                     id="pekerjaan">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">work
                         </span> Akumulasi Pekerjaan</span>
                     <span class="icon-container" onclick="openPekerjaan();">
                         <span
-                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
                     </span>
                     <canvas id="cJob"></canvas>
                 </div>
-                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                <div class="flex flex-col items-center justify-center w-full h-auto p-4 bg-white rounded-lg drop-shadow-2xl"
                     id="jenis">
                     <span class="flex items-center text-sm font-medium"><span
                             class="material-symbols-outlined me-2">apartment
                         </span> Akumulasi Jenis Tamu</span>
                     <span class="icon-container" onclick="openJenis();">
                         <span
-                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                            class="text-lg text-gray-600 material-symbols-outlined cursor-copy hover:text-xl hover:text-black">center_focus_strong</span>
                     </span>
                     <canvas id="cType"></canvas>
                 </div>

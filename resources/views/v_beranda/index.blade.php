@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex flex-col w-full px-10 mt-8 space-x-0 space-y-3 h-28 md:flex-row md:space-x-2 md:space-y-0">
+    <div class="flex flex-col w-full px-5 mt-8 space-x-0 space-y-3 md:px-10 h-28 md:flex-row md:space-x-2 md:space-y-0">
         <div class="w-full h-full rounded-lg shadow-inner bg-gradient-red md:w-1/2">
             <div class="flex">
                 <div class="p-5">
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="w-full px-10 mt-3 mb-8">
+    <div class="w-full px-5 mb-8 md:px-10 mt-28 md:mt-3">
         <div class="w-full p-8 bg-white rounded-xl">
             <div class="mb-4">
                 <input type="text" id="searchInput" class="px-4 py-2 border rounded-md" placeholder="Search...">
