@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Guest;
@@ -16,9 +17,9 @@ class AkumulasiController extends Controller
 
         if ($currentHour < 12) {
             $greeting = 'Selamat Pagi';
-        } else if ($currentHour < 15) {
+        } elseif ($currentHour < 15) {
             $greeting = 'Selamat Siang';
-        } else if ($currentHour < 18) {
+        } elseif ($currentHour < 18) {
             $greeting = 'Selamat Sore';
         } else {
             $greeting = 'Selamat Malam';
@@ -28,6 +29,10 @@ class AkumulasiController extends Controller
         $curr = Carbon::now()->format('g:i A');
 
         $sumAlls = $request->start_date && $request->end_date ? Guest::whereBetween('updated_at', [$request->start_date, $request->end_date])->count() : Guest::count();
+        $startDateTime = new DateTime($request->start_date);
+        $endDateTime = new DateTime($request->end_date);
+        $interval = $startDateTime->diff($endDateTime);
+        $daysDifference = $interval->days;
 
         $data = [
             'title' => 'Akumulasi',
@@ -36,6 +41,7 @@ class AkumulasiController extends Controller
             'today' => $today,
             'startDate' => $request->start_date ?? ' ',
             'endDate' => $request->end_date ?? ' ',
+            'daysDifference' => $daysDifference ?? ' ',
             'sum' => $sumAlls,
             'gender' => $this->getGender($request->start_date, $request->end_date, $sumAlls),
             'region' => $this->getRegion($request->start_date, $request->end_date, $sumAlls),
@@ -45,10 +51,53 @@ class AkumulasiController extends Controller
             'birth_date' => $this->getBirthDate($request->start_date, $request->end_date, $sumAlls),
         ];
 
-        // dd($data);
+        //dd($data);
         return view('v_akumulasi.index', $data);
     }
 
+    public function print(Request $request)
+    {
+        $currentHour = Carbon::now()->hour;
+
+        if ($currentHour < 12) {
+            $greeting = 'Selamat Pagi';
+        } elseif ($currentHour < 15) {
+            $greeting = 'Selamat Siang';
+        } elseif ($currentHour < 18) {
+            $greeting = 'Selamat Sore';
+        } else {
+            $greeting = 'Selamat Malam';
+        }
+
+        $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
+        $curr = Carbon::now()->format('g:i A');
+
+        $sumAlls = $request->start_date && $request->end_date ? Guest::whereBetween('updated_at', [$request->start_date, $request->end_date])->count() : Guest::count();
+        $startDateTime = new DateTime($request->start_date);
+        $endDateTime = new DateTime($request->end_date);
+        $interval = $startDateTime->diff($endDateTime);
+        $daysDifference = $interval->days;
+
+        $data = [
+            'title' => 'Akumulasi',
+            'greeting' => $greeting,
+            'clock' => $curr,
+            'today' => $today,
+            'startDate' => $request->start_date ?? ' ',
+            'endDate' => $request->end_date ?? ' ',
+            'daysDifference' => $daysDifference ?? ' ',
+            'sum' => $sumAlls,
+            'gender' => $this->getGender($request->start_date, $request->end_date, $sumAlls),
+            'region' => $this->getRegion($request->start_date, $request->end_date, $sumAlls),
+            'education' => $this->getEducation($request->start_date, $request->end_date, $sumAlls),
+            'typeGuest' => $this->getTypeGuest($request->start_date, $request->end_date, $sumAlls),
+            'work' => $this->getWork($request->start_date, $request->end_date, $sumAlls),
+            'birth_date' => $this->getBirthDate($request->start_date, $request->end_date, $sumAlls),
+        ];
+
+        //dd($data);
+        return view('v_akumulasi.print', $data);
+    }
     // Klasifikasi gender
     public function getGender($start_date, $end_date, $sumAlls)
     {

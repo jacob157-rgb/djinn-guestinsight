@@ -1,5 +1,30 @@
-@extends('layouts.app')
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
+    @notifyCss
+
+    {{-- CSS --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+
+    <title>Document</title>
+</head>
+
+<body>
+
     <style>
         .icon-container {
             position: absolute;
@@ -7,34 +32,28 @@
             right: 0px;
             padding: 2px;
         }
-    </style>
-    <form class="ms-10 mt-5 flex w-fit items-center space-x-3 rounded-full bg-white py-3 pe-3 ps-1" action=""
-        method="post">
-        @csrf
-        <input class="rounded-full bg-white px-3 py-1 drop-shadow-2xl" type="date" name="start_date"
-            value="{{ $startDate }}">
-        <span>to</span>
-        <input class="rounded-full bg-white px-3 py-1 drop-shadow-2xl" type="date" name="end_date"
-            value="{{ $endDate }}">
-        <a href="/akumulasi" class="flex justify-center rounded-full bg-white px-3 py-1 drop-shadow-2xl" type="reset">
-            <span class="material-symbols-outlined">
-                restart_alt
-            </span> Reset
-        </a>
-        <button
-            class="text-md bg-gradient-red flex justify-center rounded-full px-5 py-1 font-medium text-white drop-shadow-2xl"
-            type="submit"><span class="material-symbols-outlined pe-2 text-base font-bold">
-                filter_alt
-            </span> Filter</button>
-        <button id="export"
-            class="text-md bg-gradient-green flex justify-center rounded-full px-5 py-1 font-medium text-white drop-shadow-2xl"
-            type="button"><span class="material-symbols-outlined pe-2 text-base font-bold">
-                ios_share
-            </span> Export</button>
-    </form>
 
-    <div class="my-8 w-full px-10">
+        @media print {
+            @page {
+                margin: 0;
+                size: landscape;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            .back {
+                display: none;
+            }
+        }
+    </style>
+
+
+    <div class=" w-full px-1">
         <div class="w-full rounded-xl bg-white p-8">
+            <a href="/akumulasi"
+                class="back text-md bg-gradient-red flex justify-center rounded-full px-5 py-1 font-medium text-white drop-shadow-2xl w-24 m-5">Kembali</a>
             <div class="mb-2 flex">
                 <div>
                     <span class="bg-gradient-red material-symbols-outlined rounded-full p-1 font-bold text-white">
@@ -43,12 +62,13 @@
                 </div>
                 <div class="p-1">
                     <span>
-                        Akummulasi Data Selama {{ $startDate && $endDate != ' ' ? $daysDifference : '30' }} hari terakhir
+                        Akummulasi Data Selama {{ $startDate && $endDate != ' ' ? $daysDifference : '30' }} hari
+                        terakhir
                     </span>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+            <div class="grid">
+                <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
                     id="daerah">
                     <div class="flex items-center justify-between text-sm font-medium">
                         <span class="flex items-center">
@@ -62,55 +82,58 @@
                     <canvas id="cDaerah"></canvas>
                 </div>
 
-                <div
-                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl" id="gender">
+                <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                    id="gender">
                     <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">wc
                         </span> Akumulasi Gender</span>
-                        <span class="icon-container" onclick="openGender();">
-                            <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
-                        </span>
+                    <span class="icon-container" onclick="openGender();">
+                        <span
+                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                    </span>
                     <canvas id="cGender"></canvas>
                 </div>
-                <div
-                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl" id="usia">
-                    <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">cake
+                <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                    id="usia">
+                    <span class="flex items-center text-sm font-medium"><span
+                            class="material-symbols-outlined me-2">cake
                         </span> Akumulasi Usia</span>
-                        <span class="icon-container" onclick="openUsia();">
-                            <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
-                        </span>
+                    <span class="icon-container" onclick="openUsia();">
+                        <span
+                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                    </span>
                     <canvas id="cUsia"></canvas>
                 </div>
-                <div
-                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl" id="pendidikan">
-                    <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">school
+                <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                    id="pendidikan">
+                    <span class="flex items-center text-sm font-medium"><span
+                            class="material-symbols-outlined me-2">school
                         </span> Akumulasi Pendidikan</span>
-                        <span class="icon-container" onclick="openPendidikan();">
-                            <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
-                        </span>
+                    <span class="icon-container" onclick="openPendidikan();">
+                        <span
+                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                    </span>
                     <canvas id="cEdu"></canvas>
                 </div>
-                <div
-                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl" id="pekerjaan">
-                    <span class="flex items-center text-sm font-medium"><span class="material-symbols-outlined me-2">work
+                <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                    id="pekerjaan">
+                    <span class="flex items-center text-sm font-medium"><span
+                            class="material-symbols-outlined me-2">work
                         </span> Akumulasi Pekerjaan</span>
-                        <span class="icon-container" onclick="openPekerjaan();">
-                            <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
-                        </span>
+                    <span class="icon-container" onclick="openPekerjaan();">
+                        <span
+                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                    </span>
                     <canvas id="cJob"></canvas>
                 </div>
-                <div
-                    class="flex h-auto w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl" id="jenis">
+                <div class="flex h-auto mb-5 w-full flex-col items-center justify-center rounded-lg bg-white p-4 drop-shadow-2xl"
+                    id="jenis">
                     <span class="flex items-center text-sm font-medium"><span
                             class="material-symbols-outlined me-2">apartment
                         </span> Akumulasi Jenis Tamu</span>
-                        <span class="icon-container" onclick="openJenis();">
-                            <span
-                                class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
-                        </span>
+                    <span class="icon-container" onclick="openJenis();">
+                        <span
+                            class="material-symbols-outlined text-gray-600 hover:text-black cursor-copy text-lg hover:text-xl">center_focus_strong</span>
+                    </span>
                     <canvas id="cType"></canvas>
                 </div>
             </div>
@@ -442,6 +465,7 @@
                 elemDaerah.msRequestFullscreen();
             }
         }
+
         function openPendidikan() {
             if (elemPendidikan.requestFullscreen) {
                 elemPendidikan.requestFullscreen();
@@ -451,6 +475,7 @@
                 elemPendidikan.msRequestFullscreen();
             }
         }
+
         function openPekerjaan() {
             if (elemPekerjaan.requestFullscreen) {
                 elemPekerjaan.requestFullscreen();
@@ -460,6 +485,7 @@
                 elemPekerjaan.msRequestFullscreen();
             }
         }
+
         function openGender() {
             if (elemGender.requestFullscreen) {
                 elemGender.requestFullscreen();
@@ -469,6 +495,7 @@
                 elemGender.msRequestFullscreen();
             }
         }
+
         function openUsia() {
             if (elemUsia.requestFullscreen) {
                 elemUsia.requestFullscreen();
@@ -478,6 +505,7 @@
                 elemUsia.msRequestFullscreen();
             }
         }
+
         function openJenis() {
             if (elemJenis.requestFullscreen) {
                 elemJenis.requestFullscreen();
@@ -488,79 +516,11 @@
             }
         }
 
+        window.print()
     </script>
 
-    {{--
-    <p>total tamu : {{ $sum }}</p>
-    <p>Laki laki total : {{ $gender['male']['count'] }} = {{ $gender['male']['persen'] }} % dari keseluruhan data =
-        {{ $sum }}</p>
-    <p>Perempuan total : {{ $gender['female']['count'] }} = {{ $gender['female']['persen'] }} % dari keseluruhan data =
-        {{ $sum }}</p>
-    <p>None total : {{ $gender['none']['count'] }} = {{ $gender['none']['persen'] }} % dari keseluruhan data
-        = {{ $sum }}</p>
 
-    <div style="display: flex; margin: 5px">
-        <table border="2">
-            <tr>
-                <th>Name</th>
-                <th>Gender</th>
-            </tr>
-            @foreach ($gender['male']['datas'] as $row)
-                <tr>
-                    <td>{{ $row->name }}</td>
-                    <td>{{ $row->gender }}</td>
-                </tr>
-            @endforeach
-            <tr>
-                <th>Jumlah</th>
-                <td>{{ $gender['male']['count'] }}</td>
-            </tr>
-            <tr>
-                <th>persentasi</th>
-                <td>{{ $gender['male']['persen'] }} %</td>
-            </tr>
-        </table>
-        <br>
-        <table border="2" style="margin-left: 5px; margin-right: 5px">
-            <tr>
-                <th>Name</th>
-                <th>Gender</th>
-            </tr>
-            @foreach ($gender['female']['datas'] as $row)
-                <tr>
-                    <td>{{ $row->name }}</td>
-                    <td>{{ $row->gender }}</td>
-                </tr>
-            @endforeach
-            <tr>
-                <th>Jumlah</th>
-                <td>{{ $gender['female']['count'] }}</td>
-            </tr>
-            <tr>
-                <th>persentasi</th>
-                <td>{{ $gender['female']['persen'] }} %</td>
-            </tr>
-        </table>
-        <br>
-        <table border="2">
-            <tr>
-                <th>Name</th>
-                <th>Gender</th>
-            </tr>
-            @foreach ($gender['none']['datas'] as $row)
-                <tr>
-                    <td>{{ $row->name }}</td>
-                    <td>{{ $row->gender }}</td>
-                </tr>
-            @endforeach
-            <tr>
-                <th>Jumlah</th>
-                <td>{{ $gender['none']['count'] }}</td>
-            </tr>
-            <tr>
-                <th>persentasi</th>
-                <td>{{ $gender['none']['persen'] }} %</td>
-            </tr>
-        </table>
-    </div> --}}
-@endsection
+
+</body>
+
+</html>

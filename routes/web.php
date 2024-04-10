@@ -58,5 +58,6 @@ Route::middleware([Permission::class])->group(function () {
         Route::get('/', [AkumulasiController::class, 'index']);
         //filter date
         Route::post('/', [AkumulasiController::class, 'index']);
+        Route::get('/print', [AkumulasiController::class, 'print']);
     });
 });
